@@ -104,7 +104,10 @@ export class DataTableComponent implements OnInit {
   refreshData() {
     // Server data
     if (this.options.ajax) {
-
+      this.table.DataTable().ajax.reload(()=>{
+        this._hasAttachedListenerEdit = false;
+        this._hasAttachedListenerDelete = false;
+      });
     }
     // Local data
     else {

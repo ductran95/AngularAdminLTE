@@ -100,7 +100,9 @@ export class CityComponent implements OnInit {
 
   showPopupEdit(event) {
     var data = this.dataTableCity.getRowData(event.currentTarget);
-    this.model = _.cloneDeep(data);
+    this.cityService.getById(data.Id).subscribe((resp: City[]) => {
+      this.model = resp[0];
+    })
     this.popupAddEditOptions.okText = "Update";
     this.popupAddEditOptions.title = "Update City";
     this.popupAddEditCity.show();
@@ -123,33 +125,29 @@ export class CityComponent implements OnInit {
   onCityFormSubmit(event) {
     // Update
     if (this.model.id) {
-      var data = _.find(this.dataTableOptions.data, {id: this.model.id});
-      _.assign(data, this.model);
-      this.resetForm();
-      this.popupAddEditCity.hide();
-      this.refreshDataTable();
+      this.cityService.update(this.model).subscribe((resp: any) => {
+        this.resetForm();
+        this.popupAddEditCity.hide();
+        this.refreshDataTable();
+      });
     }
     // Add
     else {
-      var maxItem = _.maxBy(this.dataTableOptions.data, 'id');
-      var id = 1;
-      if (maxItem) {
-        id = maxItem.id + 1;
-      }
-      this.model.id = id;
-      this.dataTableOptions.data.push(this.model);
-      this.resetForm();
-      this.popupAddEditCity.hide();
-      this.refreshDataTable();
+      this.cityService.add(this.model).subscribe((resp: any) => {
+        this.resetForm();
+        this.popupAddEditCity.hide();
+        this.refreshDataTable();
+      });
     }
   }
 
   onDeleteCitySubmit(event) {
     if (this.model.id) {
-      _.remove(this.dataTableOptions.data, {id: this.model.id});
-      this.resetForm();
-      this.popupDeleteCity.hide();
-      this.refreshDataTable();
+      this.cityService.delete(this.model.id).subscribe((resp: any) => {
+        this.resetForm();
+        this.popupDeleteCity.hide();
+        this.refreshDataTable();
+      });
     }
   }
 
