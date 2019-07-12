@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout-setting/main-layout-setting.component';
 
-import { SettingComponent } from './setting.component';
 
-describe('SettingComponent', () => {
-  let component: SettingComponent;
-  let fixture: ComponentFixture<SettingComponent>;
+describe('MainLayoutSettingComponent', () => {
+  let component: MainLayoutSettingComponent;
+  let fixture: ComponentFixture<MainLayoutSettingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingComponent ]
+      declarations: [ MainLayoutSettingComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingComponent);
+    fixture = TestBed.createComponent(MainLayoutSettingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

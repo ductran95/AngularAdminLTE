@@ -1,5 +1,5 @@
 <!-- Content Header (Page header) -->
-<main-layout-page-header></main-layout-page-header>
+<main-layout-page-header [title]="'List County'"></main-layout-page-header>
 
 <!-- Main content -->
 <section class="content container-fluid">
@@ -8,7 +8,7 @@
         | Your Page Content Here |
         -------------------------->
 
-  <common-data-table #dataTableCounty [title]="'List County'" [options]="dataTableOptions" (onAddClick)="showPopupAdd($event)" (onEditClick)="showPopupEdit($event)" (onDeleteClick)="showPopupDelete($event)"></common-data-table>
+  <common-data-table #dataTableCounty [title]="" [options]="dataTableOptions" (onAddClick)="showPopupAdd($event)" (onEditClick)="showPopupEdit($event)" (onDeleteClick)="showPopupDelete($event)"></common-data-table>
 
   <common-popup #popupAddEditCounty [options]="popupAddEditOptions" (onOKClick)="onCountyFormSubmit($event)">
     <div class="box box-primary">

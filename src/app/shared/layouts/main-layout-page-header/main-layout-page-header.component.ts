@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'main-layout-page-header',
@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class MainLayoutPageHeaderComponent implements OnInit {
 
   //#region Inputs
+
+  @Input() title: string;
+  @Input() description: string;
 
   //#endregion
 
@@ -23,7 +26,7 @@ export class MainLayoutPageHeaderComponent implements OnInit {
 
   //#region OnInit
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   //#endregion
 
