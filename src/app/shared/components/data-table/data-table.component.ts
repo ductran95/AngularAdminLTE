@@ -51,7 +51,11 @@ export class DataTableComponent implements OnInit {
         searching: false,
         ordering: true,
         info: true,
-        autoWidth: false
+        autoWidth: false,
+        drawCallback: ()=>{
+          this._hasAttachedListenerEdit = false;
+          this._hasAttachedListenerDelete = false;
+        }
       });
     }
     else {
@@ -60,6 +64,10 @@ export class DataTableComponent implements OnInit {
         data: null,
         defaultContent: '<a id=editButton class="btn btn-app" ><i class="fa fa-edit"></i> Edit</a> <a class="btn btn-app" id=deleteButton><i class="fa fa-trash"></i> Delete</a>'
       });
+      this.options.drawCallback = ()=>{
+        this._hasAttachedListenerEdit = false;
+        this._hasAttachedListenerDelete = false;
+      }
     }
 
     this.table = $(this.tableElement.nativeElement);
@@ -104,18 +112,13 @@ export class DataTableComponent implements OnInit {
   refreshData() {
     // Server data
     if (this.options.ajax) {
-      this.table.DataTable().ajax.reload(()=>{
-        this._hasAttachedListenerEdit = false;
-        this._hasAttachedListenerDelete = false;
-      });
+      this.table.DataTable().ajax.reload();
     }
     // Local data
     else {
       this.table.DataTable().clear().draw();
       this.table.DataTable().rows.add(this.options.data); // Add new data
       this.table.DataTable().columns.adjust().draw(); // Redraw the DataTable
-      this._hasAttachedListenerEdit = false;
-      this._hasAttachedListenerDelete = false;
     }
   }
 

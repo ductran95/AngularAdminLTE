@@ -13,4 +13,5 @@ export class DataTableOption {
     info: boolean;
     autoWidth: boolean;
     ajax: any;
+    drawCallback: any;
 }
