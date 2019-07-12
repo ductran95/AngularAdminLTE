@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+.btn-app{
+    height: 30px !important;
+    margin: 0px 10px !important;
+    padding: 5px 20px !important;
+}
+
+.btn-app > i.fa{
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+.login-page{
+    height: calc(100vh);
+    margin-top: 0px;
+    padding-top: 1px;
+}
+
+.content-wrapper{
+    min-height: calc(100vh - 102px) !important;
+}
