@@ -37,8 +37,6 @@ export class CountyComponent implements OnInit {
 
   dropDownList: any;
 
-  testModel: boolean = true;
-
   //#endregion
 
   //#region Constructors
