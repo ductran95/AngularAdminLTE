@@ -37,6 +37,8 @@ export class CountyComponent implements OnInit {
 
   dropDownList: any;
 
+  testModel: boolean = true;
+
   //#endregion
 
   //#region Constructors
@@ -53,9 +55,9 @@ export class CountyComponent implements OnInit {
       cityList: []
     };
 
-    this.cityService.getAll().subscribe((resp: City[]) => {
-      this.dropDownList.cityList = resp;
-    })
+    // this.cityService.getAll().subscribe((resp: City[]) => {
+    //   this.dropDownList.cityList = resp;
+    // })
 
     this.dataTableOptions = new DataTableOption({
       data: [new County({

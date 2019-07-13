@@ -9,6 +9,7 @@ import { MainLayoutFooterComponent } from '@app/shared/layouts/main-layout-foote
 import { MainLayoutPageHeaderComponent } from '@app/shared/layouts/main-layout-page-header/main-layout-page-header.component';
 import { MainLayoutSidebarComponent } from '@app/shared/layouts/main-layout-sidebar/main-layout-sidebar.component';
 import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout-setting/main-layout-setting.component';
+import { IcheckDirective } from './directives/icheck.directive';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout-sett
     MainLayoutFooterComponent,
     MainLayoutPageHeaderComponent,
     MainLayoutSidebarComponent,
-    MainLayoutSettingComponent
+    MainLayoutSettingComponent,
+    IcheckDirective
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout-sett
     MainLayoutSettingComponent,
     DataTableComponent,
     PopupComponent,
+    IcheckDirective
   ]
 })
 export class SharedModule { }
