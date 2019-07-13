@@ -29,6 +29,12 @@ export class DataTableComponent implements OnInit {
   private _hasAttachedListenerEdit: boolean = false;
   private _hasAttachedListenerDelete: boolean = false;
 
+  private search: string;
+
+  protected _hasAdd: boolean = false;
+  private _hasEdit: boolean = false;
+  private _hasDelete: boolean = false;
+
   //#endregion
 
   //#region Constructors
@@ -52,21 +58,28 @@ export class DataTableComponent implements OnInit {
         ordering: true,
         info: true,
         autoWidth: false,
-        drawCallback: ()=>{
+        drawCallback: () => {
           this._hasAttachedListenerEdit = false;
           this._hasAttachedListenerDelete = false;
         }
       });
     }
     else {
-      this.options.columns.push({
-        title: 'Actions',
-        data: null,
-        defaultContent: '<a id=editButton class="btn btn-app" ><i class="fa fa-edit"></i> Edit</a> <a class="btn btn-app" id=deleteButton><i class="fa fa-trash"></i> Delete</a>'
-      });
-      this.options.drawCallback = ()=>{
-        this._hasAttachedListenerEdit = false;
-        this._hasAttachedListenerDelete = false;
+      this._hasAdd = this.options.actions.includes("Add");
+      this._hasEdit = this.options.actions.includes("Edit");
+      this._hasDelete = this.options.actions.includes("Delete");
+
+      if(this._hasEdit || this._hasDelete){
+        this.options.columns.push({
+          title: 'Actions',
+          data: null,
+          defaultContent: (this._hasEdit ? '<a id=editButton class="btn btn-app" ><i class="fa fa-edit"></i> Edit</a>' : '')
+          + (this._hasDelete ? '<a class="btn btn-app" id=deleteButton><i class="fa fa-trash"></i> Delete</a>' : '')
+        });
+      }
+      
+      this.options.drawCallback = () => {
+        this.rebindEvent();
       }
     }
 
@@ -105,8 +118,21 @@ export class DataTableComponent implements OnInit {
 
   //#region Funtions
 
+  private rebindEvent() {
+    if(this._hasEdit){
+      this._hasAttachedListenerEdit = false;
+    }
+    if(this._hasDelete){
+      this._hasAttachedListenerDelete = false;
+    }
+  }
+
   private onAdd(item: any) {
     this.onAddClick.emit(item);
+  }
+
+  private onSearchFormSubmit(event) {
+    this.table.DataTable().search( this.search ).draw();
   }
 
   refreshData() {

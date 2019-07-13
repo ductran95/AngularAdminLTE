@@ -67,7 +67,8 @@ export class CityComponent implements OnInit {
       searching: false,
       ordering: true,
       info: true,
-      autoWidth: false
+      autoWidth: false,
+      actions: ['Add', 'Edit', 'Delete']
     });
 
     this.popupAddEditOptions = {

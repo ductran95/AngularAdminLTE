@@ -3,9 +3,9 @@ export class DataTableOption {
         Object.assign(this, init);
     }
 
-    data: Array<any>;
-    columns: Array<any>;
-    columnDefs: Array<any>;
+    data: any[];
+    columns: any[];
+    columnDefs: any[];
     paging: boolean;
     lengthChange: boolean;
     searching: boolean;
@@ -14,4 +14,5 @@ export class DataTableOption {
     autoWidth: boolean;
     ajax: any;
     drawCallback: any;
+    actions: string[]
 }

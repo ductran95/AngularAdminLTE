@@ -5,6 +5,8 @@ import { PopupComponent } from '@app/shared/components/popup/popup.component';
 import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
 import { County } from '@app/shared/models/master-data/county';
 import * as _ from 'lodash';
+import { CityService } from '@app/shared/services/master-data/city.service';
+import { City } from '@app/shared/models/master-data/city';
 
 @Component({
   selector: 'master-data-county',
@@ -33,17 +35,28 @@ export class CountyComponent implements OnInit {
 
   model: County;
 
+  dropDownList: any;
+
   //#endregion
 
   //#region Constructors
 
-  constructor() { }
+  constructor(private cityService: CityService) { }
 
   //#endregion
 
   //#region OnInit
 
   ngOnInit() {
+
+    this.dropDownList = {
+      cityList: []
+    };
+
+    this.cityService.getAll().subscribe((resp: City[]) => {
+      this.dropDownList.cityList = resp;
+    })
+
     this.dataTableOptions = new DataTableOption({
       data: [new County({
         id: 1,
@@ -53,7 +66,12 @@ export class CountyComponent implements OnInit {
       columns: [
         { title: 'Id', data: 'id' },
         { title: 'Name', data: 'countyName' },
-        { title: 'City Id', data: 'cityId' },
+        {
+          title: 'City', data: (data) => {
+            var city = _.find(this.dropDownList.cityList, { Id: data.cityId });
+            return city ? city.name : '';
+          }
+        },
       ],
       columnDefs: [],
       paging: true,
@@ -61,7 +79,8 @@ export class CountyComponent implements OnInit {
       searching: false,
       ordering: true,
       info: true,
-      autoWidth: false
+      autoWidth: false,
+      actions: ['Add', 'Edit', 'Delete']
     });
 
     this.popupAddEditOptions = {
