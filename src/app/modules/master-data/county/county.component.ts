@@ -68,7 +68,7 @@ export class CountyComponent implements OnInit {
         { title: 'Name', data: 'countyName' },
         {
           title: 'City', data: (data) => {
-            var city = _.find(this.dropDownList.cityList, { Id: data.cityId });
+            let city = _.find(this.dropDownList.cityList, { Id: data.cityId });
             return city ? city.name : '';
           }
         },
@@ -112,7 +112,7 @@ export class CountyComponent implements OnInit {
   }
 
   showPopupEdit(event) {
-    var data = this.dataTableCounty.getRowData(event.currentTarget);
+    let data = this.dataTableCounty.getRowData(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupAddEditOptions.okText = "Update";
     this.popupAddEditOptions.title = "Update County";
@@ -120,7 +120,7 @@ export class CountyComponent implements OnInit {
   }
 
   showPopupDelete(event) {
-    var data = this.dataTableCounty.getRowData(event.currentTarget);
+    let data = this.dataTableCounty.getRowData(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupDeleteCounty.show();
   }
@@ -136,7 +136,7 @@ export class CountyComponent implements OnInit {
   onCountyFormSubmit(event) {
     // Update
     if (this.model.id) {
-      var data = _.find(this.dataTableOptions.data, {id: this.model.id});
+      let data = _.find(this.dataTableOptions.data, {id: this.model.id});
       _.assign(data, this.model);
       this.resetForm();
       this.popupAddEditCounty.hide();
@@ -144,8 +144,8 @@ export class CountyComponent implements OnInit {
     }
     // Add
     else {
-      var maxItem = _.maxBy(this.dataTableOptions.data, 'id');
-      var id = 1;
+      let maxItem = _.maxBy(this.dataTableOptions.data, 'id');
+      let id = 1;
       if (maxItem) {
         id = maxItem.id + 1;
       }

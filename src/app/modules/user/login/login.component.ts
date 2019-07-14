@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   onLogInFormSubmit(event) {
     this.authService.logIn();
-    var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.router.navigate([returnUrl]);
   }
 

@@ -90,7 +90,7 @@ export class DataTableComponent implements OnInit {
 
   ngAfterViewChecked() {
     if (!this._hasAttachedListenerEdit) {
-      var buttons = this.tableElement.nativeElement.querySelectorAll("#editButton");
+      let buttons = this.tableElement.nativeElement.querySelectorAll("#editButton");
       if (buttons.length > 0) {
         for (let i = 0; i < buttons.length; i++) {
           this.renderer.listen(buttons[i], 'click', (evt) => {
@@ -102,7 +102,7 @@ export class DataTableComponent implements OnInit {
     }
 
     if (!this._hasAttachedListenerDelete) {
-      var buttons = this.tableElement.nativeElement.querySelectorAll("#deleteButton");
+      let buttons = this.tableElement.nativeElement.querySelectorAll("#deleteButton");
       if (buttons.length > 0) {
         for (let i = 0; i < buttons.length; i++) {
           this.renderer.listen(buttons[i], 'click', (evt) => {
@@ -149,7 +149,7 @@ export class DataTableComponent implements OnInit {
   }
 
   getRowData(ele): any {
-    var tr = $(ele).closest("tr");
+    let tr = $(ele).closest("tr");
     return this.table.DataTable().row(tr).data();
   }
 

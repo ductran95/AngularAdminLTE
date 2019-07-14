@@ -100,7 +100,7 @@ export class CityComponent implements OnInit {
   }
 
   showPopupEdit(event) {
-    var data = this.dataTableCity.getRowData(event.currentTarget);
+    let data = this.dataTableCity.getRowData(event.currentTarget);
     this.cityService.getById(data.Id).subscribe((resp: City[]) => {
       this.model = resp[0];
     })
@@ -110,7 +110,7 @@ export class CityComponent implements OnInit {
   }
 
   showPopupDelete(event) {
-    var data = this.dataTableCity.getRowData(event.currentTarget);
+    let data = this.dataTableCity.getRowData(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupDeleteCity.show();
   }
