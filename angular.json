@@ -24,18 +24,33 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/styles.css"
+              "src/assets/css/styles.css",
+              "src/assets/lib/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/lib/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css",
+              "src/assets/lib/AdminLTE/bower_components/Ionicons/css/ionicons.min.css",
+              "src/assets/lib/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css",
+              "src/assets/lib/AdminLTE/dist/css/AdminLTE.min.css",
+              "src/assets/lib/AdminLTE/plugins/iCheck/all.css",
+              "src/assets/lib/AdminLTE/dist/css/skins/skin-blue.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/lib/AdminLTE/bower_components/jquery/dist/jquery.min.js",
+              "src/assets/lib/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/lib/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js",
+              "src/assets/lib/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js",
+              "src/assets/lib/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js",
+              "src/assets/lib/AdminLTE/bower_components/fastclick/lib/fastclick.js",
+              "src/assets/lib/AdminLTE/plugins/iCheck/icheck.min.js",
+              "src/assets/lib/AdminLTE/bower_components/jquery-ui/jquery-ui.min.js",
+              "src/assets/lib/AdminLTE/dist/js/adminlte.min.js"
+            ]
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -45,13 +60,11 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
+              "budgets": [{
+                "type": "initial",
+                "maximumWarning": "2mb",
+                "maximumError": "5mb"
+              }]
             }
           }
         },
@@ -115,6 +128,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "AngularAdminLTE"
 }

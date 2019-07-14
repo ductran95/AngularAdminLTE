@@ -12,7 +12,7 @@
 }
 
 .login-page{
-    height: calc(100vh);
+    height: calc(100vh) !important;
     margin-top: 0px;
     padding-top: 1px;
 }
