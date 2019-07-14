@@ -21,28 +21,32 @@
             "aot": false,
             "assets": [
               "src/assets/img/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/admin-lte/dist",
+                "output": "./assets/lib/AdminLTE"
+              }
             ],
             "styles": [
               "src/assets/css/styles.css",
-              "src/assets/lib/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/lib/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css",
-              "src/assets/lib/AdminLTE/bower_components/Ionicons/css/ionicons.min.css",
-              "src/assets/lib/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css",
-              "src/assets/lib/AdminLTE/dist/css/AdminLTE.min.css",
-              "src/assets/lib/AdminLTE/plugins/iCheck/all.css",
-              "src/assets/lib/AdminLTE/dist/css/skins/skin-blue.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/ionicons/dist/css/ionicons.min.css",
+              "node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css",
+              "node_modules/admin-lte/dist/css/AdminLTE.min.css",
+              "node_modules/admin-lte/dist/css/skins/skin-blue.min.css",
+              "node_modules/icheck/skins/all.css"
             ],
             "scripts": [
-              "src/assets/lib/AdminLTE/bower_components/jquery/dist/jquery.min.js",
-              "src/assets/lib/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/lib/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js",
-              "src/assets/lib/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js",
-              "src/assets/lib/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js",
-              "src/assets/lib/AdminLTE/bower_components/fastclick/lib/fastclick.js",
-              "src/assets/lib/AdminLTE/plugins/iCheck/icheck.min.js",
-              "src/assets/lib/AdminLTE/bower_components/jquery-ui/jquery-ui.min.js",
-              "src/assets/lib/AdminLTE/dist/js/adminlte.min.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.min.js",
+              "node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js",
+              "node_modules/jquery-slimscroll/jquery.slimscroll.min.js",
+              "node_modules/fastclick/lib/fastclick.js",
+              "node_modules/icheck/icheck.min.js",
+              "node_modules/admin-lte/dist/js/adminlte.min.js"
             ]
           },
           "configurations": {
