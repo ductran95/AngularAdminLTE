@@ -3,6 +3,6 @@ export class City {
         Object.assign(this, init);
     }
 
-    id: number;
-    name: string;
+    id: number = null;
+    name: string = "";
 }

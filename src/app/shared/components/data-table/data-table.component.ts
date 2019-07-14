@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Renderer, Output, EventEmitter } from '@angular/core';
 import { DataTableOption } from '@app/shared/models/options/data-table-option';
+import { DataTableSearchParam } from '@app/shared/models/params/data-table-search-param';
 
 declare var $;
 
@@ -28,8 +29,6 @@ export class DataTableComponent implements OnInit {
 
   private _hasAttachedListenerEdit: boolean = false;
   private _hasAttachedListenerDelete: boolean = false;
-
-  private search: string;
 
   protected _hasAdd: boolean = false;
   private _hasEdit: boolean = false;
@@ -61,7 +60,8 @@ export class DataTableComponent implements OnInit {
         drawCallback: () => {
           this._hasAttachedListenerEdit = false;
           this._hasAttachedListenerDelete = false;
-        }
+        },
+        dom: 'lrtip'
       });
     }
     else {
@@ -77,6 +77,8 @@ export class DataTableComponent implements OnInit {
           + (this._hasDelete ? '<a class="btn btn-app" id=deleteButton><i class="fa fa-trash"></i> Delete</a>' : '')
         });
       }
+
+      this.options.dom = 'lrtip';
       
       this.options.drawCallback = () => {
         this.rebindEvent();
@@ -131,10 +133,6 @@ export class DataTableComponent implements OnInit {
     this.onAddClick.emit(item);
   }
 
-  private onSearchFormSubmit(event) {
-    this.table.DataTable().search( this.search ).draw();
-  }
-
   refreshData() {
     // Server data
     if (this.options.ajax) {
@@ -151,6 +149,13 @@ export class DataTableComponent implements OnInit {
   getRowData(ele): any {
     let tr = $(ele).closest("tr");
     return this.table.DataTable().row(tr).data();
+  }
+
+  search(searchParams: DataTableSearchParam[]) {
+    searchParams.forEach(element => {
+      this.table.DataTable().columns(element.columnIndex).search(element.searchKey);
+    });
+    this.table.DataTable().draw();
   }
 
   //#endregion

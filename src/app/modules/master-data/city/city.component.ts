@@ -6,6 +6,7 @@ import { DataTableComponent } from '@app/shared/components/data-table/data-table
 import { City } from '@app/shared/models/master-data/city';
 import * as _ from "lodash";
 import { CityService } from '@app/shared/services/master-data/city.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -21,11 +22,11 @@ export class CityComponent implements OnInit {
 
   //#region Properties
 
-  dataTableOptions: DataTableOption;
+  dataTableCityOptions: DataTableOption;
 
-  popupAddEditOptions: PopupOption;
+  popupAddEditCityOptions: PopupOption;
 
-  popupDeleteOptions: PopupOption;
+  popupDeleteCityOptions: PopupOption;
 
   @ViewChild('popupAddEditCity', { static: false }) popupAddEditCity: PopupComponent;
 
@@ -34,6 +35,10 @@ export class CityComponent implements OnInit {
   @ViewChild('dataTableCity', { static: false }) dataTableCity: DataTableComponent;
 
   model: City;
+
+  searchParams: {
+    name: string
+  };
 
   //#endregion
 
@@ -46,17 +51,22 @@ export class CityComponent implements OnInit {
   //#region OnInit
 
   ngOnInit() {
-    this.dataTableOptions = new DataTableOption({
+
+    this.searchParams = {
+      name: ""
+    };
+
+    this.dataTableCityOptions = new DataTableOption({
       data: [],
-      ajax: (dataTablesParameters: any, callback) => {    
+      ajax: (dataTablesParameters: any, callback) => {
         this.cityService.getAll().subscribe((resp: City[]) => {
           callback({
             recordsTotal: resp.length,
             recordsFiltered: resp.length,
             data: resp
           });
-        })   
-      }, 
+        })
+      },
       columns: [
         { title: 'Id', data: 'id' },
         { title: 'Name', data: 'name' },
@@ -71,14 +81,14 @@ export class CityComponent implements OnInit {
       actions: ['Add', 'Edit', 'Delete']
     });
 
-    this.popupAddEditOptions = {
+    this.popupAddEditCityOptions = {
       type: "",
       title: "Add City",
       okText: "Add",
       cancelText: "Cancel"
     };
 
-    this.popupDeleteOptions = {
+    this.popupDeleteCityOptions = {
       type: "",
       title: "Delete City",
       okText: "Yes",
@@ -94,8 +104,8 @@ export class CityComponent implements OnInit {
 
   showPopupAdd() {
     this.resetForm();
-    this.popupAddEditOptions.okText = "Add";
-    this.popupAddEditOptions.title = "Add City";
+    this.popupAddEditCityOptions.okText = "Add";
+    this.popupAddEditCityOptions.title = "Add City";
     this.popupAddEditCity.show();
   }
 
@@ -104,8 +114,8 @@ export class CityComponent implements OnInit {
     this.cityService.getById(data.Id).subscribe((resp: City[]) => {
       this.model = resp[0];
     })
-    this.popupAddEditOptions.okText = "Update";
-    this.popupAddEditOptions.title = "Update City";
+    this.popupAddEditCityOptions.okText = "Update";
+    this.popupAddEditCityOptions.title = "Update City";
     this.popupAddEditCity.show();
   }
 
@@ -123,22 +133,24 @@ export class CityComponent implements OnInit {
     this.model = new City();
   }
 
-  onCityFormSubmit(event) {
-    // Update
-    if (this.model.id) {
-      this.cityService.update(this.model).subscribe((resp: any) => {
-        this.resetForm();
-        this.popupAddEditCity.hide();
-        this.refreshDataTable();
-      });
-    }
-    // Add
-    else {
-      this.cityService.add(this.model).subscribe((resp: any) => {
-        this.resetForm();
-        this.popupAddEditCity.hide();
-        this.refreshDataTable();
-      });
+  onCityFormSubmit(addCityForm: NgForm) {
+    if (addCityForm.valid) {
+      // Update
+      if (this.model.id) {
+        this.cityService.update(this.model).subscribe((resp: any) => {
+          this.resetForm();
+          this.popupAddEditCity.hide();
+          this.refreshDataTable();
+        });
+      }
+      // Add
+      else {
+        this.cityService.add(this.model).subscribe((resp: any) => {
+          this.resetForm();
+          this.popupAddEditCity.hide();
+          this.refreshDataTable();
+        });
+      }
     }
   }
 
@@ -149,6 +161,17 @@ export class CityComponent implements OnInit {
         this.popupDeleteCity.hide();
         this.refreshDataTable();
       });
+    }
+  }
+
+  onSearchFormSubmit(searchCityForm: NgForm) {
+    if (searchCityForm.valid) {
+      this.dataTableCity.search([
+        {
+          columnIndex: 1,
+          searchKey: this.searchParams.name
+        }
+      ]);
     }
   }
 

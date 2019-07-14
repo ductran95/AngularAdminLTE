@@ -3,16 +3,17 @@ export class DataTableOption {
         Object.assign(this, init);
     }
 
-    data: any[];
-    columns: any[];
-    columnDefs: any[];
-    paging: boolean;
-    lengthChange: boolean;
-    searching: boolean;
-    ordering: boolean;
-    info: boolean;
-    autoWidth: boolean;
+    data: any[] = [];
+    columns: any[] = [];
+    columnDefs: any[] = [];
+    paging: boolean = false;
+    lengthChange: boolean = false;
+    searching: boolean = false;
+    ordering: boolean = false;
+    info: boolean = false;
+    autoWidth: boolean = false;
     ajax: any;
     drawCallback: any;
-    actions: string[]
+    actions: string[] = [];
+    dom: string = '';
 }

@@ -3,7 +3,7 @@ export class County {
         Object.assign(this, init);
     }
 
-    id: number;
-    countyName: string;
-    cityId: number;
+    id: number = null;
+    countyName: string = "";
+    cityId: number = null;
 }

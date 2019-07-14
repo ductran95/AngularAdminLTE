@@ -7,6 +7,7 @@ import { County } from '@app/shared/models/master-data/county';
 import * as _ from 'lodash';
 import { CityService } from '@app/shared/services/master-data/city.service';
 import { City } from '@app/shared/models/master-data/city';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'master-data-county',
@@ -21,11 +22,11 @@ export class CountyComponent implements OnInit {
 
   //#region Properties
 
-  dataTableOptions: DataTableOption;
+  dataTableCountyOptions: DataTableOption;
 
-  popupAddEditOptions: PopupOption;
+  popupAddEditCountyOptions: PopupOption;
 
-  popupDeleteOptions: PopupOption;
+  popupDeleteCountyOptions: PopupOption;
 
   @ViewChild('popupAddEditCounty', { static: false }) popupAddEditCounty: PopupComponent;
 
@@ -35,7 +36,14 @@ export class CountyComponent implements OnInit {
 
   model: County;
 
-  dropDownList: any;
+  dropDownList: {
+    cityList: City[]
+  };
+
+  searchParams: {
+    cityId: number,
+    name: string
+  };
 
   //#endregion
 
@@ -53,11 +61,16 @@ export class CountyComponent implements OnInit {
       cityList: []
     };
 
-    // this.cityService.getAll().subscribe((resp: City[]) => {
-    //   this.dropDownList.cityList = resp;
-    // })
+    this.searchParams = {
+      cityId: null,
+      name: ""
+    };
 
-    this.dataTableOptions = new DataTableOption({
+    this.cityService.getAll().subscribe((resp: City[]) => {
+      this.dropDownList.cityList = resp;
+    })
+
+    this.dataTableCountyOptions = new DataTableOption({
       data: [new County({
         id: 1,
         countyName: 'HN',
@@ -68,7 +81,7 @@ export class CountyComponent implements OnInit {
         { title: 'Name', data: 'countyName' },
         {
           title: 'City', data: (data) => {
-            let city = _.find(this.dropDownList.cityList, { Id: data.cityId });
+            let city = _.find<City>(this.dropDownList.cityList, { id: data.cityId });
             return city ? city.name : '';
           }
         },
@@ -83,14 +96,14 @@ export class CountyComponent implements OnInit {
       actions: ['Add', 'Edit', 'Delete']
     });
 
-    this.popupAddEditOptions = {
+    this.popupAddEditCountyOptions = {
       type: "",
       title: "Add County",
       okText: "Add",
       cancelText: "Cancel"
     };
 
-    this.popupDeleteOptions = {
+    this.popupDeleteCountyOptions = {
       type: "",
       title: "Delete County",
       okText: "Yes",
@@ -106,16 +119,16 @@ export class CountyComponent implements OnInit {
 
   showPopupAdd() {
     this.resetForm();
-    this.popupAddEditOptions.okText = "Add";
-    this.popupAddEditOptions.title = "Add County";
+    this.popupAddEditCountyOptions.okText = "Add";
+    this.popupAddEditCountyOptions.title = "Add County";
     this.popupAddEditCounty.show();
   }
 
   showPopupEdit(event) {
     let data = this.dataTableCounty.getRowData(event.currentTarget);
     this.model = _.cloneDeep(data);
-    this.popupAddEditOptions.okText = "Update";
-    this.popupAddEditOptions.title = "Update County";
+    this.popupAddEditCountyOptions.okText = "Update";
+    this.popupAddEditCountyOptions.title = "Update County";
     this.popupAddEditCounty.show();
   }
 
@@ -133,39 +146,57 @@ export class CountyComponent implements OnInit {
     this.model = new County();
   }
 
-  onCountyFormSubmit(event) {
-    // Update
-    if (this.model.id) {
-      let data = _.find(this.dataTableOptions.data, {id: this.model.id});
-      _.assign(data, this.model);
-      this.resetForm();
-      this.popupAddEditCounty.hide();
-      this.refreshDataTable();
-    }
-    // Add
-    else {
-      let maxItem = _.maxBy(this.dataTableOptions.data, 'id');
-      let id = 1;
-      if (maxItem) {
-        id = maxItem.id + 1;
+  onCountyFormSubmit(addCountyForm: NgForm) {
+    if (addCountyForm.valid) {
+      // Update
+      if (this.model.id) {
+        let data = _.find(this.dataTableCountyOptions.data, { id: this.model.id });
+        _.assign(data, this.model);
+        this.resetForm();
+        this.popupAddEditCounty.hide();
+        this.refreshDataTable();
       }
-      this.model.id = id;
-      this.dataTableOptions.data.push(this.model);
-      this.resetForm();
-      this.popupAddEditCounty.hide();
-      this.refreshDataTable();
+      // Add
+      else {
+        let maxItem = _.maxBy(this.dataTableCountyOptions.data, 'id');
+        let id = 1;
+        if (maxItem) {
+          id = maxItem.id + 1;
+        }
+        this.model.id = id;
+        this.dataTableCountyOptions.data.push(this.model);
+        this.resetForm();
+        this.popupAddEditCounty.hide();
+        this.refreshDataTable();
+      }
     }
   }
 
   onDeleteCountySubmit(event) {
     if (this.model.id) {
-      _.remove(this.dataTableOptions.data, {id: this.model.id});
+      _.remove(this.dataTableCountyOptions.data, { id: this.model.id });
       this.resetForm();
       this.popupDeleteCounty.hide();
       this.refreshDataTable();
     }
   }
 
+  onSearchFormSubmit(searchCountyForm: NgForm) {
+    if (searchCountyForm.valid) {
+      let city = _.find<City>(this.dropDownList.cityList, { id: this.searchParams.cityId });
+      let cityName = city ? city.name : "";
+      this.dataTableCounty.search([
+        {
+          columnIndex: 1,
+          searchKey: this.searchParams.name
+        },
+        {
+          columnIndex: 2,
+          searchKey: cityName
+        },
+      ]);
+    }
+  }
   //#endregion
 
 }

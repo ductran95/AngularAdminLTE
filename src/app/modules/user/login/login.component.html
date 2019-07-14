@@ -7,20 +7,20 @@
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form (ngSubmit)="onLogInFormSubmit($event)" #logInForm="ngForm">
-        <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="Email">
+      <form (ngSubmit)="onLogInFormSubmit(logInForm)" #logInForm="ngForm">
+        <div class="form-group " [ngClass]="{'has-feedback': logInFormEmail.valid || (logInFormEmail.pristine && !logInForm.submitted), 'has-error': logInFormEmail.invalid && (logInFormEmail.dirty || logInForm.submitted)}">
+          <input type="email" class="form-control" placeholder="Email" id="logInFormEmail" name="logInFormEmail" [(ngModel)]="logInParam.email" #logInFormEmail="ngModel" required>
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
-        <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password">
+        <div class="form-group " [ngClass]="{'has-feedback': logInFormPassword.valid || (logInFormPassword.pristine && !logInForm.submitted), 'has-error': logInFormPassword.invalid && (logInFormPassword.dirty || logInForm.submitted)}">
+          <input type="password" class="form-control" placeholder="Password" id="logInFormPassword" name="logInFormPassword" [(ngModel)]="logInParam.password" #logInFormPassword="ngModel" required>
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
           <div class="col-xs-8">
             <div class="checkbox icheck">
               <label>
-                <input type="checkbox"> Remember Me
+                <input [icheck]="isRememberCheckboxOption" type="checkbox" id="logInFormRemember" name="logInFormRemember" [(ngModel)]="logInParam.remember"> &nbsp;&nbsp; Remember Me
               </label>
             </div>
           </div>

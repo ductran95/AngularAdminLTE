@@ -6,17 +6,9 @@
         <div class="box-header">
           <h2 class="box-title">{{title}}</h2>
           <button type="button" class="btn btn-block btn-primary" (click)="onAdd()" *ngIf="_hasAdd"
-          style="width: 100px; margin: -10px 20px 10px 20px;">Add</button>
+          style="width: 100px; margin: 0px 20px 10px 20px; display: inline-block;">Add</button>
           <!-- search form (Optional) -->
-          <!-- <form class="sidebar-form pull-right" (ngSubmit)="onSearchFormSubmit($event)" #searchForm="ngForm">
-            <div class="input-group">
-              <input type="text" name="searchParams" class="form-control" placeholder="Search..." [(ngModel)]="search">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          </form> -->
+          <ng-content select="div.d-filter"></ng-content>
           <!-- /.search form -->
         </div>
         <!-- /.box-header -->

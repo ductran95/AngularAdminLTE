@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { LogInParam } from '@app/shared/models/params/log-in-param';
+import { IcheckOption } from '@app/shared/models/options/icheck-option';
 
-declare var $;
 
 @Component({
   selector: 'user-login',
@@ -17,6 +19,10 @@ export class LoginComponent implements OnInit {
 
   //#region Properties
 
+  logInParam: LogInParam;
+
+  isRememberCheckboxOption: IcheckOption;
+
   //#endregion
 
   //#region Constructors
@@ -28,23 +34,25 @@ export class LoginComponent implements OnInit {
   //#region OnInit
 
   ngOnInit() {
-    $(function () {
-      $('input').iCheck({
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' /* optional */
-      });
-    });
+
+    this.isRememberCheckboxOption = {
+      checkboxClass: "icheckbox_square-blue",
+      radioClass: "iradio_minimal-blue"
+    };
+
+    this.logInParam = new LogInParam();
   }
 
   //#endregion
 
   //#region Funtions
 
-  onLogInFormSubmit(event) {
-    this.authService.logIn();
-    let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.router.navigate([returnUrl]);
+  onLogInFormSubmit(logInForm: NgForm) {
+    if(logInForm.valid){
+      this.authService.logIn();
+      let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.router.navigate([returnUrl]);
+    }
   }
 
   //#endregion

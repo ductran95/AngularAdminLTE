@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from '@app/modules/user/login/login.component';
 import { UserRoutingModule } from '@app/modules/user/user-routing.module';
 import { FormsModule }   from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { FormsModule }   from '@angular/forms';
   imports: [
     CommonModule,
     UserRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class UserModule { }
