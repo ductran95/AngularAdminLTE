@@ -15,7 +15,8 @@
           "options": {
             "customWebpackConfig": {
               "path": "./extra-webpack.config.js",
-              "mergeStrategies": { "externals": "replace" }
+              "mergeStrategies": { "module.rules": "prepend" },
+              "replaceDuplicatePlugins": true
             },
             "indexTransform": "./index-html.transform.js",
             "outputPath": "dist/AngularAdminLTE",
