@@ -1,0 +1,63 @@
+<!-- Content Header (Page header) -->
+<main-layout-page-header [title]="'List City'"></main-layout-page-header>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+  <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+  <common-data-table #dataTableCity [title]="" [options]="dataTableCityOptions" (onAddClick)="showPopupAdd($event)"
+    (onEditClick)="showPopupEdit($event)" (onDeleteClick)="showPopupDelete($event)">
+    <div class="d-filter pull-right">
+      <!-- <h3 class="col-sm-3">
+            Filter
+          </h3> -->
+      <form class="form-horizontal d-filter-box pull-right" (ngSubmit)="onSearchFormSubmit(searchCityForm)"
+        #searchCityForm="ngForm">
+        <div class="form-group d-filter-item"
+          [ngClass]="{'has-feedback': searchCityFormName.valid || (searchCityFormName.pristine && !searchCityForm.submitted), 'has-error': searchCityFormName.invalid && (searchCityFormName.dirty || searchCityForm.submitted)}">
+          <label for="searchCityFormName" class="col-sm-2">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="searchCityFormName" name="searchCityFormName"
+              placeholder="Search" [(ngModel)]="searchParams.name" #searchCityFormName="ngModel">
+          </div>
+        </div>
+        <div class="form-group d-filter-item d-filter-button">
+          <button type="submit" class="btn btn-block btn-primary col-sm-2"><i class="fa fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </common-data-table>
+
+  <common-popup #popupAddEditCity [options]="popupAddEditCityOptions" (onOKClick)="addCityForm.onSubmit($event)">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Input information</h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <form (ngSubmit)="onCityFormSubmit(addCityForm)" #addCityForm="ngForm">
+        <div class="box-body">
+          <div class="form-group" [hidden]="!model.id">
+            <label for="addCityFormId">ID</label>
+            <input type="number" class="form-control" id="addCityFormId" name="addCityFormId" placeholder="ID"
+              [(ngModel)]="model.id">
+          </div>
+          <div class="form-group" [ngClass]="{'has-feedback': addCityFormName.valid || (addCityFormName.pristine && !addCityForm.submitted), 'has-error': addCityFormName.invalid && (addCityFormName.dirty || addCityForm.submitted)}">
+            <label for="addCityFormName">Name</label>
+            <input type="text" class="form-control" id="addCityFormName" name="addCityFormName"
+              placeholder="Name" [(ngModel)]="model.name" #addCityFormName="ngModel" required>
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </form>
+    </div>
+  </common-popup>
+
+  <common-popup #popupDeleteCity [options]="popupDeleteCityOptions" (onOKClick)="onDeleteCitySubmit($event)">
+    <p>Are you sure to delete this city?</p>
+  </common-popup>
+</section>
+<!-- /.content -->

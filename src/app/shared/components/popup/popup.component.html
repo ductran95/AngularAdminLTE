@@ -1,0 +1,20 @@
+<div #modal class="modal {{!options.type ? '' : 'modal-' + options.type}} fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{options.title}}</h4>
+      </div>
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="hide()">{{options.cancelText}}</button>
+        <button type="button" class="btn btn-{{!options.type ? 'primary' : 'outline'}}" (click)="onOK()">{{options.okText}}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+
+.btn-app{
+    height: 30px !important;
+    margin: 0px 10px !important;
+    padding: 5px 20px !important;
+}
+
+.btn-app > i.fa{
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+.login-page{
+    height: calc(100vh) !important;
+    margin-top: 0px;
+    padding-top: 1px;
+}
+
+.content-wrapper{
+    min-height: calc(100vh - 102px) !important;
+}
+
+.skin-blue .data-table .sidebar-form input[type="text"]{
+    background-color: unset !important;
+}
+
+.skin-blue .data-table .sidebar-form{
+    width: 300px !important;
+}
+
+.display-block{
+    display: block !important;
+}
+
+.d-filter{
+    line-height: 30px;
+    width: 80%;
+    display: inline-block;
+}
+
+.d-filter h3{
+    display: inline-block;
+    margin: 0px 30px 0px 10px;
+}
+
+.d-filter .d-filter-box{
+    display: inline-block;
+}
+
+.d-filter .d-filter-item{
+    display: inline-block;
+    padding: 0 20px;
+    width: 400px;
+}
+
+.d-filter .d-filter-item.d-filter-button{
+    width: auto
+}
+
+.d-filter button[type='submit']{
+    display: inline-block;
+}
