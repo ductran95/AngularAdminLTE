@@ -31,6 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 git remote add github https://github.com/ductran95/AngularAdminLTE.git
 git remote add gitlab https://gitlab.com/ductran95/angularadminlte.git
+git remote add bitbucket https://duc_tran95@bitbucket.org/duc_tran95/angularadminlte.git
 
 ## Setup a remote 'all' to push all remotes, by opening '.git/config'
 
@@ -38,6 +39,7 @@ git remote add gitlab https://gitlab.com/ductran95/angularadminlte.git
     url = https://ductran95@dev.azure.com/ductran95/AngularAdminLTE/_git/AngularAdminLTE
     url = https://github.com/ductran95/AngularAdminLTE.git
 	url = https://gitlab.com/ductran95/angularadminlte.git
+	url = https://duc_tran95@bitbucket.org/duc_tran95/angularadminlte.git
 
 ## Fetch all remote using git bash
 
