@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'main-layout-setting',
   templateUrl: './main-layout-setting.component.html',
-  styleUrls: ['./main-layout-setting.component.css']
+  styleUrls: ['./main-layout-setting.component.scss']
 })
 export class MainLayoutSettingComponent implements OnInit {
 

@@ -5,7 +5,11 @@
   "projects": {
     "AngularAdminLTE": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -34,7 +38,7 @@
               }
             ],
             "styles": [
-              "src/assets/css/styles.css",
+              "src/assets/css/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/ionicons/dist/css/ionicons.min.css",
@@ -105,7 +109,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/styles.css"
+              "src/assets/css/styles.scss"
             ],
             "scripts": []
           }

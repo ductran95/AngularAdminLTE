@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'master-data-city',
   templateUrl: './city.component.html',
-  styleUrls: ['./city.component.css']
+  styleUrls: ['./city.component.scss']
 })
 export class CityComponent implements OnInit {
 

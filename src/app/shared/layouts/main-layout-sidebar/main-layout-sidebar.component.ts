@@ -5,7 +5,7 @@ declare var $;
 @Component({
   selector: 'main-layout-sidebar',
   templateUrl: './main-layout-sidebar.component.html',
-  styleUrls: ['./main-layout-sidebar.component.css']
+  styleUrls: ['./main-layout-sidebar.component.scss']
 })
 export class MainLayoutSidebarComponent implements OnInit {
 

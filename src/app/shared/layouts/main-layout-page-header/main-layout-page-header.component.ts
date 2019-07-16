@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'main-layout-page-header',
   templateUrl: './main-layout-page-header.component.html',
-  styleUrls: ['./main-layout-page-header.component.css']
+  styleUrls: ['./main-layout-page-header.component.scss']
 })
 export class MainLayoutPageHeaderComponent implements OnInit {
 

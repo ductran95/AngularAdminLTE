@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'master-data-county',
   templateUrl: './county.component.html',
-  styleUrls: ['./county.component.css']
+  styleUrls: ['./county.component.scss']
 })
 export class CountyComponent implements OnInit {
 

@@ -9,7 +9,7 @@ import { IcheckOption } from '@app/shared/models/options/icheck-option';
 @Component({
   selector: 'user-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
