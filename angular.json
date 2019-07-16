@@ -26,6 +26,11 @@
                 "glob": "**/*",
                 "input": "./node_modules/admin-lte/dist",
                 "output": "./assets/lib/AdminLTE"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/icheck/skins",
+                "output": "./assets/lib/icheck/skins",
               }
             ],
             "styles": [
@@ -35,8 +40,7 @@
               "node_modules/ionicons/dist/css/ionicons.min.css",
               "node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css",
               "node_modules/admin-lte/dist/css/AdminLTE.min.css",
-              "node_modules/admin-lte/dist/css/skins/skin-blue.min.css",
-              "node_modules/icheck/skins/all.css"
+              "node_modules/admin-lte/dist/css/skins/skin-blue.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
