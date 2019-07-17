@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input, Renderer, Output, EventEmitter } f
 import { DataTableOption } from '@app/shared/models/options/data-table-option';
 import { DataTableSearchParam } from '@app/shared/models/params/data-table-search-param';
 
-import * as $ from 'jquery';
 import 'datatables.net';
 
 @Component({

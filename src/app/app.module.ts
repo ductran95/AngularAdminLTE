@@ -6,7 +6,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { MasterDataModule } from '@app/modules/master-data/master-data.module';
 import { UserModule } from './modules/user/user.module';
 import { CoreModule } from '@app/core/core.module';
-
+import * as $ from 'jquery';
 
 @NgModule({
   declarations: [

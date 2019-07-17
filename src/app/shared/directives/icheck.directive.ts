@@ -2,7 +2,6 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 import { IcheckOption } from '@app/shared/models/options/icheck-option';
 
-import * as $ from 'jquery';
 import 'icheck';
 
 @Directive({
@@ -32,10 +31,7 @@ export class IcheckDirective implements OnInit {
 
   ngOnInit() {
 
-    $(this.element.nativeElement).iCheck({
-      checkboxClass: this.options.checkboxClass,
-      radioClass: this.options.radioClass
-    });
+    $(this.element.nativeElement).iCheck(this.options);
 
 
     /* Here you can write custom initialization code */
