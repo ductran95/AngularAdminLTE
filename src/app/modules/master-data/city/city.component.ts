@@ -95,7 +95,7 @@ export class CityComponent implements OnInit {
       cancelText: "Cancel"
     };
 
-    this.model = new City();
+    this.resetForm();
   }
 
   //#endregion
@@ -130,7 +130,10 @@ export class CityComponent implements OnInit {
   }
 
   resetForm() {
-    this.model = new City();
+    this.model = {
+      id: null,
+      name: ''
+    }
   }
 
   onCityFormSubmit(addCityForm: NgForm) {

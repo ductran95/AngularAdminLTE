@@ -8,6 +8,8 @@ import * as _ from 'lodash';
 import { CityService } from '@app/shared/services/master-data/city.service';
 import { City } from '@app/shared/models/master-data/city';
 import { NgForm } from '@angular/forms';
+import { AlertService } from '@app/shared/services/common/alert.service';
+import { ToastrOption } from '@app/shared/models/options/toastr-option';
 
 @Component({
   selector: 'master-data-county',
@@ -49,7 +51,7 @@ export class CountyComponent implements OnInit {
 
   //#region Constructors
 
-  constructor(private cityService: CityService) { }
+  constructor(private cityService: CityService, private alertService: AlertService) { }
 
   //#endregion
 
@@ -58,7 +60,10 @@ export class CountyComponent implements OnInit {
   ngOnInit() {
 
     this.dropDownList = {
-      cityList: []
+      cityList: [{
+        id: 1,
+        name: "Ha Noi"
+      }]
     };
 
     this.searchParams = {
@@ -66,9 +71,9 @@ export class CountyComponent implements OnInit {
       name: ""
     };
 
-    this.cityService.getAll().subscribe((resp: City[]) => {
-      this.dropDownList.cityList = resp;
-    })
+    // this.cityService.getAll().subscribe((resp: City[]) => {
+    //   this.dropDownList.cityList = resp;
+    // })
 
     this.dataTableCountyOptions = new DataTableOption({
       data: [new County({
@@ -110,7 +115,7 @@ export class CountyComponent implements OnInit {
       cancelText: "Cancel"
     };
 
-    this.model = new County();
+    this.resetForm();
   }
 
   //#endregion
@@ -143,7 +148,11 @@ export class CountyComponent implements OnInit {
   }
 
   resetForm() {
-    this.model = new County();
+    this.model = {
+      cityId: null,
+      countyName: '',
+      id: null
+    }
   }
 
   onCountyFormSubmit(addCountyForm: NgForm) {
@@ -152,6 +161,7 @@ export class CountyComponent implements OnInit {
       if (this.model.id) {
         let data = _.find(this.dataTableCountyOptions.data, { id: this.model.id });
         _.assign(data, this.model);
+        this.alertService.success("Update county success");
         this.resetForm();
         this.popupAddEditCounty.hide();
         this.refreshDataTable();
@@ -165,6 +175,7 @@ export class CountyComponent implements OnInit {
         }
         this.model.id = id;
         this.dataTableCountyOptions.data.push(this.model);
+        this.alertService.success("Add county success");
         this.resetForm();
         this.popupAddEditCounty.hide();
         this.refreshDataTable();
@@ -175,6 +186,7 @@ export class CountyComponent implements OnInit {
   onDeleteCountySubmit(event) {
     if (this.model.id) {
       _.remove(this.dataTableCountyOptions.data, { id: this.model.id });
+      this.alertService.success("Delete county success");
       this.resetForm();
       this.popupDeleteCounty.hide();
       this.refreshDataTable();

@@ -44,7 +44,8 @@
               "node_modules/ionicons/dist/css/ionicons.min.css",
               "node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css",
               "node_modules/admin-lte/dist/css/AdminLTE.min.css",
-              "node_modules/admin-lte/dist/css/skins/skin-blue.min.css"
+              "node_modules/admin-lte/dist/css/skins/skin-blue.min.css",
+              "node_modules/toastr/toastr.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -54,7 +55,8 @@
               "node_modules/jquery-slimscroll/jquery.slimscroll.min.js",
               "node_modules/fastclick/lib/fastclick.js",
               "node_modules/icheck/icheck.min.js",
-              "node_modules/admin-lte/dist/js/adminlte.min.js"
+              "node_modules/admin-lte/dist/js/adminlte.min.js",
+              "node_modules/toastr/toastr.js"
             ]
           },
           "configurations": {

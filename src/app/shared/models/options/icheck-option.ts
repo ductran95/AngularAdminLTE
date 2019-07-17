@@ -3,6 +3,6 @@ export class IcheckOption implements ICheckOptions {
         Object.assign(this, init);
     }
 
-    checkboxClass: string = '';
-    radioClass: string = '';
+    checkboxClass: string;
+    radioClass: string;
 }

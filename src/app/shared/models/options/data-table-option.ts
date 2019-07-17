@@ -3,17 +3,17 @@ export class DataTableOption implements DataTables.Settings {
         Object.assign(this, init);
     }
 
-    data: any[] = [];
-    columns: any[] = [];
-    columnDefs: any[] = [];
-    paging: boolean = false;
-    lengthChange: boolean = false;
-    searching: boolean = false;
-    ordering: boolean = false;
-    info: boolean = false;
-    autoWidth: boolean = false;
+    data: any[];
+    columns: any[];
+    columnDefs: any[];
+    paging: boolean;
+    lengthChange: boolean;
+    searching: boolean;
+    ordering: boolean;
+    info: boolean;
+    autoWidth: boolean;
     ajax: any;
     drawCallback: any;
-    actions: string[] = [];
-    dom: string = '';
+    actions: string[];
+    dom: string;
 }
