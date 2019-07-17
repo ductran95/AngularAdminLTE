@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.1.1",
     "@angular/platform-browser-dynamic": "~8.1.1",
     "@angular/router": "~8.1.1",
+    "@types/bootstrap": "^3.4.0",
     "@types/datatables.net": "^1.10.17",
     "@types/icheck": "^0.8.29",
     "@types/lodash": "^4.14.136",

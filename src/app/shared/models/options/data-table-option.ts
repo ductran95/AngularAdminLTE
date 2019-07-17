@@ -1,4 +1,4 @@
-export class DataTableOption {
+export class DataTableOption implements DataTables.Settings {
     public constructor(init?:Partial<DataTableOption>) {
         Object.assign(this, init);
     }

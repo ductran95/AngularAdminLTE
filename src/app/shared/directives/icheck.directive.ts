@@ -2,10 +2,11 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 import { IcheckOption } from '@app/shared/models/options/icheck-option';
 
-declare var $;
+import * as $ from 'jquery';
+import 'icheck';
 
 @Directive({
-  selector: '[icheck]'
+  selector: '[icheck]',
 })
 export class IcheckDirective implements OnInit {
 

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { PopupOption } from '@app/shared/models/options/popup-option';
 
-declare var $;
+import * as $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'common-popup',
@@ -21,7 +22,7 @@ export class PopupComponent implements OnInit {
 
   @ViewChild('modal', { static: true }) modalElement;
 
-  modal: any;
+  modal: JQuery;
 
   //#endregion
 

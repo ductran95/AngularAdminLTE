@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, Input, Renderer, Output, EventEmitter } f
 import { DataTableOption } from '@app/shared/models/options/data-table-option';
 import { DataTableSearchParam } from '@app/shared/models/params/data-table-search-param';
 
-declare var $;
+import * as $ from 'jquery';
+import 'datatables.net';
 
 @Component({
   selector: 'common-data-table',
@@ -25,7 +26,7 @@ export class DataTableComponent implements OnInit {
   //#region Properties
 
   @ViewChild('dataTable', { static: true }) tableElement;
-  table: any;
+  table: JQuery;
 
   private _hasAttachedListenerEdit: boolean = false;
   private _hasAttachedListenerDelete: boolean = false;
