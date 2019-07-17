@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { PopupOption } from '@app/shared/models/options/popup-option';
 
-import * as $ from 'jquery';
 import 'bootstrap';
 
 @Component({

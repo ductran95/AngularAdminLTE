@@ -34,7 +34,7 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/icheck/skins",
-                "output": "./assets/lib/icheck/skins",
+                "output": "./assets/lib/icheck/skins"
               }
             ],
             "styles": [
