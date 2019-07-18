@@ -3,6 +3,6 @@ export class DataTableSearchParam {
         Object.assign(this, init);
     }
 
-    columnIndex: number = null;
-    searchKey: string = '';
+    columnIndex: number;
+    searchKey: string;
 }

@@ -3,7 +3,7 @@ export class LogInParam {
         Object.assign(this, init);
     }
 
-    email: string = '';
-    password: string = '';
-    remember: boolean = false;
+    email: string;
+    password: string;
+    remember: boolean;
 }
