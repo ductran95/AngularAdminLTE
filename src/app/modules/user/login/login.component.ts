@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LogInParam } from '@app/shared/models/params/log-in-param';
 import { IcheckOption } from '@app/shared/models/options/icheck-option';
+import { AlertService } from '@app/shared/services/common/alert.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   //#region Constructors
 
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private alertService: AlertService) { }
 
   //#endregion
 
@@ -49,9 +50,15 @@ export class LoginComponent implements OnInit {
 
   onLogInFormSubmit(logInForm: NgForm) {
     if(logInForm.valid){
-      this.authService.logIn();
-      let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-      this.router.navigate([returnUrl]);
+      this.authService.logIn(this.logInParam).subscribe(
+        (resp: boolean) => {
+          let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.router.navigate([returnUrl]);
+        },
+        error => {
+          this.alertService.error('Login failed!');
+        }
+      );
     }
   }
 

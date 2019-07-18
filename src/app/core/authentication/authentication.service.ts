@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
+import { apiUrls } from '@app/shared/constants/apiUrls';
+import { LogInParam } from '@app/shared/models/params/log-in-param';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +17,15 @@ export class AuthenticationService {
 
   //#region Properties
 
-  private _jwtSecret: any;
+  private baseUrl = environment.baseUrl;
+  private apiUrl = apiUrls.user;
+  private _jwtSecret: string;
 
   //#endregion
 
   //#region Constructors
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   //#endregion
 
@@ -30,8 +38,17 @@ export class AuthenticationService {
 
   //#region Funtions
 
-  logIn() {
-    this._jwtSecret = "logged";
+  logIn(loginParam: LogInParam): Observable<boolean> {
+    return this.http.post<LogInParam>(this.baseUrl + this.apiUrl.login, loginParam).pipe(
+      map((resp: any) => {
+        this._jwtSecret = resp;
+        return true;
+      },
+        error => {
+          this._jwtSecret = null;
+          return false;
+        })
+    );
   }
 
   logOut() {
@@ -40,6 +57,10 @@ export class AuthenticationService {
 
   isAuthenticated(): boolean {
     return this._jwtSecret != null;
+  }
+
+  getJwt() : string {
+    return this._jwtSecret;
   }
 
   //#endregion
