@@ -32,17 +32,17 @@ export class AlertService {
     toastr["success"](data, null, newOption);
   }
 
-  info(data: string, option: ToastrOption){
+  info(data: string, option: ToastrOption = null){
     let newOption = _.assign({}, this._defaultOption, option);
     toastr["info"](data, null, newOption);
   }
 
-  warning(data: string, option: ToastrOption){
+  warning(data: string, option: ToastrOption = null){
     let newOption = _.assign({}, this._defaultOption, option);
     toastr["warning"](data, null, newOption);
   }
 
-  error(data: string, option: ToastrOption){
+  error(data: string, option: ToastrOption = null){
     let newOption = _.assign({}, this._defaultOption, option);
     toastr["error"](data, null, newOption);
   }
