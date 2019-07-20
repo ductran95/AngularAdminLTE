@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { mainMenu } from '@app/shared/constants/mainMenu';
 
 declare var $;
 
@@ -15,6 +16,8 @@ export class MainLayoutSidebarComponent implements OnInit {
 
   //#region Properties
 
+  menu: any[];
+
   //#endregion
 
   //#region Constructors
@@ -30,6 +33,8 @@ export class MainLayoutSidebarComponent implements OnInit {
       const trees: any = $('[data-widget="tree"]');
       trees.tree();
     });
+
+    this.menu = mainMenu;
   }
 
   //#endregion

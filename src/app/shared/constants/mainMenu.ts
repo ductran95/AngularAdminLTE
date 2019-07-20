@@ -1,0 +1,28 @@
+export const mainMenu = [
+    {
+        name: 'Fund',
+        path: '/master-data/fund'
+    },
+    {
+        name: 'Phone',
+        path: '/master-data/phone'
+    },
+    {
+        name: 'Master Data',
+        path: '',
+        childrens: [
+            {
+                name: 'City',
+                path: '/master-data/city'
+            },
+            {
+                name: 'County',
+                path: '/master-data/county'
+            },
+            {
+                name: 'User',
+                path: '/master-data/user'
+            },
+        ]
+    }
+]
