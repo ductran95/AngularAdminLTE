@@ -56,7 +56,7 @@ export class CityComponent implements OnInit {
       name: ""
     };
 
-    this.dataTableCityOptions = new DataTableOption({
+    this.dataTableCityOptions = {
       data: [],
       ajax: (dataTablesParameters: any, callback) => {
         this.cityService.getAll().subscribe((resp: City[]) => {
@@ -79,7 +79,7 @@ export class CityComponent implements OnInit {
       info: true,
       autoWidth: false,
       actions: ['Add', 'Edit', 'Delete']
-    });
+    };
 
     this.popupAddEditCityOptions = {
       type: "",

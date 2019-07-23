@@ -41,12 +41,20 @@ export class LoginComponent implements OnInit {
       radioClass: "iradio_minimal-blue"
     };
 
-    this.logInParam = new LogInParam();
+    this.resetForm();
   }
 
   //#endregion
 
   //#region Funtions
+
+  resetForm() {
+    this.logInParam = {
+      email: '',
+      password: '',
+      remember: false
+    }
+  }
 
   onLogInFormSubmit(logInForm: NgForm) {
     if(logInForm.valid){

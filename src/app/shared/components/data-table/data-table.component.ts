@@ -47,7 +47,7 @@ export class DataTableComponent implements OnInit {
   ngOnInit() {
 
     if (!this.options) {
-      this.options = new DataTableOption({
+      this.options = {
         data: [],
         columns: [],
         columnDefs: [],
@@ -62,7 +62,7 @@ export class DataTableComponent implements OnInit {
           this._hasAttachedListenerDelete = false;
         },
         dom: 'lrtip'
-      });
+      };
     }
     else {
       this._hasAdd = this.options.actions.includes("Add");

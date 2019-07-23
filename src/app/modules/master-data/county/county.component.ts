@@ -75,12 +75,12 @@ export class CountyComponent implements OnInit {
     //   this.dropDownList.cityList = resp;
     // })
 
-    this.dataTableCountyOptions = new DataTableOption({
-      data: [new County({
+    this.dataTableCountyOptions = {
+      data: [{
         id: 1,
         countyName: 'HN',
         cityId: 1
-      })],
+      }],
       columns: [
         { title: 'Id', data: 'id' },
         { title: 'Name', data: 'countyName' },
@@ -99,7 +99,7 @@ export class CountyComponent implements OnInit {
       info: true,
       autoWidth: false,
       actions: ['Add', 'Edit', 'Delete']
-    });
+    };
 
     this.popupAddEditCountyOptions = {
       type: "",
