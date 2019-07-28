@@ -10,6 +10,7 @@ const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     canActivate: [AuthenticationGuard],
+    runGuardsAndResolvers: "always",
     children: [
       {
         path: 'master-data',
