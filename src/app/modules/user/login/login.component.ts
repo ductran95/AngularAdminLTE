@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
 
   //#region Constructors
 
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private alertService: AlertService) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+              private authService: AuthenticationService, private alertService: AlertService) { }
 
   //#endregion
 
@@ -37,8 +38,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.isRememberCheckboxOption = {
-      checkboxClass: "icheckbox_square-blue",
-      radioClass: "iradio_minimal-blue"
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_minimal-blue'
     };
 
     this.resetForm();
@@ -53,14 +54,14 @@ export class LoginComponent implements OnInit {
       email: '',
       password: '',
       remember: false
-    }
+    };
   }
 
   onLogInFormSubmit(logInForm: NgForm) {
-    if(logInForm.valid){
+    if (logInForm.valid) {
       this.authService.logIn(this.logInParam).subscribe(
         (resp: boolean) => {
-          let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
           this.router.navigate([returnUrl]);
         },
         error => {

@@ -27,24 +27,24 @@ export class AlertService {
 
   constructor() { }
 
-  success(data: string, option: ToastrOption = null){
-     let newOption = _.assign({}, this._defaultOption, option);
-    toastr["success"](data, null, newOption);
+  success(data: string, option: ToastrOption = null) {
+     const newOption = _.assign({}, this._defaultOption, option);
+     toastr.success(data, null, newOption);
   }
 
-  info(data: string, option: ToastrOption = null){
-    let newOption = _.assign({}, this._defaultOption, option);
-    toastr["info"](data, null, newOption);
+  info(data: string, option: ToastrOption = null) {
+    const newOption = _.assign({}, this._defaultOption, option);
+    toastr.info(data, null, newOption);
   }
 
-  warning(data: string, option: ToastrOption = null){
-    let newOption = _.assign({}, this._defaultOption, option);
-    toastr["warning"](data, null, newOption);
+  warning(data: string, option: ToastrOption = null) {
+    const newOption = _.assign({}, this._defaultOption, option);
+    toastr.warning(data, null, newOption);
   }
 
-  error(data: string, option: ToastrOption = null){
-    let newOption = _.assign({}, this._defaultOption, option);
-    toastr["error"](data, null, newOption);
+  error(data: string, option: ToastrOption = null) {
+    const newOption = _.assign({}, this._defaultOption, option);
+    toastr.error(data, null, newOption);
   }
 
   clear() {

@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
 
   //#region Properties
-  
-  
+
+
   //#endregion
 
   //#region Constructors
@@ -18,16 +18,15 @@ export class LocalStorageService {
 
   //#region Funtions
 
-  saveLocal(key: string, data: any){
+  saveLocal(key: string, data: any) {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  getLocal(key: string){
-    let data = localStorage.getItem(key);
-    if(data != undefined){
+  getLocal(key: string) {
+    const data = localStorage.getItem(key);
+    if (data != undefined) {
       return JSON.parse(data);
-    }
-    else{
+    } else {
       return undefined;
     }
   }
@@ -36,16 +35,15 @@ export class LocalStorageService {
     localStorage.removeItem(key);
   }
 
-  saveSession(key: string, data: any){
+  saveSession(key: string, data: any) {
     sessionStorage.setItem(key, JSON.stringify(data));
   }
 
-  getSession(key: string){
-    let data = sessionStorage.getItem(key);
-    if(data != undefined){
+  getSession(key: string) {
+    const data = sessionStorage.getItem(key);
+    if (data != undefined) {
       return JSON.parse(data);
-    }
-    else{
+    } else {
       return undefined;
     }
   }

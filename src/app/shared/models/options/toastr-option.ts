@@ -1,4 +1,4 @@
-export class ToastrOption implements ToastrOptions{
+export class ToastrOption implements ToastrOptions {
     escapeHtml?: boolean;
     closeButton?: boolean;
     progressBar?: boolean;

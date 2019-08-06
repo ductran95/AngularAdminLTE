@@ -42,11 +42,11 @@ export class PopupComponent implements OnInit {
   //#region Funtions
 
   show() {
-    this.modal.modal("show");
+    this.modal.modal('show');
   }
 
   hide() {
-    this.modal.modal("hide");
+    this.modal.modal('hide');
   }
 
   onOK(item: any) {

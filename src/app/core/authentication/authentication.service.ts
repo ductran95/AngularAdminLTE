@@ -27,8 +27,8 @@ export class AuthenticationService {
   //#region Constructors
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
-    let jwtSecret = this.localStorageService.getLocal("_jwtSecret");
-    if(jwtSecret){
+    const jwtSecret = this.localStorageService.getLocal('_jwtSecret');
+    if (jwtSecret) {
       this._jwtSecret = jwtSecret;
     }
    }
@@ -43,7 +43,7 @@ export class AuthenticationService {
         (resp: any) => {
           this._jwtSecret = resp;
           if (loginParam.remember) {
-            this.localStorageService.saveLocal("_jwtSecret", this._jwtSecret);
+            this.localStorageService.saveLocal('_jwtSecret', this._jwtSecret);
           }
           return true;
         },
@@ -56,7 +56,7 @@ export class AuthenticationService {
 
   logOut() {
     this._jwtSecret = null;
-    this.localStorageService.clearLocal("_jwtSecret");
+    this.localStorageService.clearLocal('_jwtSecret');
   }
 
   isAuthenticated(): boolean {

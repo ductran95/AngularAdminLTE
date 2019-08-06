@@ -5,6 +5,7 @@ import { IcheckOption } from '@app/shared/models/options/icheck-option';
 import 'icheck';
 
 @Directive({
+  // tslint:disable-next-line: directive-selector
   selector: '[icheck]',
 })
 export class IcheckDirective implements OnInit {
@@ -41,15 +42,14 @@ export class IcheckDirective implements OnInit {
       /* Set any value of your custom control */
       if (value) {
         $(this.element.nativeElement).iCheck('check');
-      }
-      else {
+      } else {
         $(this.element.nativeElement).iCheck('uncheck');
       }
       $(this.element.nativeElement).iCheck('update');
     });
 
     /* Inform ng model for any new change happened */
-    $(this.element.nativeElement).bind("ifToggled", (event) => {
+    $(this.element.nativeElement).on('ifToggled', (event) => {
       this.ngControl.control.setValue(event.target.checked);
     });
   }

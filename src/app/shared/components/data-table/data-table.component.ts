@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Renderer, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, Renderer2, AfterViewChecked } from '@angular/core';
 import { DataTableOption } from '@app/shared/models/options/data-table-option';
 import { DataTableSearchParam } from '@app/shared/models/params/data-table-search-param';
 
@@ -9,7 +9,7 @@ import 'datatables.net';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent implements OnInit, AfterViewChecked {
 
   //#region Inputs, Outputs
 
@@ -27,18 +27,18 @@ export class DataTableComponent implements OnInit {
   @ViewChild('dataTable', { static: true }) tableElement;
   table: JQuery;
 
-  private _hasAttachedListenerEdit: boolean = false;
-  private _hasAttachedListenerDelete: boolean = false;
+  private _hasAttachedListenerEdit = false;
+  private _hasAttachedListenerDelete = false;
 
-  protected _hasAdd: boolean = false;
-  private _hasEdit: boolean = false;
-  private _hasDelete: boolean = false;
+  protected _hasAdd = false;
+  private _hasEdit = false;
+  private _hasDelete = false;
 
   //#endregion
 
   //#region Constructors
 
-  constructor(private renderer: Renderer) { }
+  constructor(private renderer: Renderer2) { }
 
   //#endregion
 
@@ -63,13 +63,12 @@ export class DataTableComponent implements OnInit {
         },
         dom: 'lrtip'
       };
-    }
-    else {
-      this._hasAdd = this.options.actions.includes("Add");
-      this._hasEdit = this.options.actions.includes("Edit");
-      this._hasDelete = this.options.actions.includes("Delete");
+    } else {
+      this._hasAdd = this.options.actions.includes('Add');
+      this._hasEdit = this.options.actions.includes('Edit');
+      this._hasDelete = this.options.actions.includes('Delete');
 
-      if(this._hasEdit || this._hasDelete){
+      if (this._hasEdit || this._hasDelete) {
         this.options.columns.push({
           title: 'Actions',
           data: null,
@@ -79,10 +78,10 @@ export class DataTableComponent implements OnInit {
       }
 
       this.options.dom = 'lrtip';
-      
+
       this.options.drawCallback = () => {
         this.rebindEvent();
-      }
+      };
     }
 
     this.table = $(this.tableElement.nativeElement);
@@ -92,8 +91,9 @@ export class DataTableComponent implements OnInit {
 
   ngAfterViewChecked() {
     if (!this._hasAttachedListenerEdit) {
-      let buttons = this.tableElement.nativeElement.querySelectorAll("#editButton");
+      const buttons = this.tableElement.nativeElement.querySelectorAll('#editButton');
       if (buttons.length > 0) {
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < buttons.length; i++) {
           this.renderer.listen(buttons[i], 'click', (evt) => {
             this.onEditClick.emit(evt);
@@ -104,8 +104,9 @@ export class DataTableComponent implements OnInit {
     }
 
     if (!this._hasAttachedListenerDelete) {
-      let buttons = this.tableElement.nativeElement.querySelectorAll("#deleteButton");
+      const buttons = this.tableElement.nativeElement.querySelectorAll('#deleteButton');
       if (buttons.length > 0) {
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < buttons.length; i++) {
           this.renderer.listen(buttons[i], 'click', (evt) => {
             this.onDeleteClick.emit(evt);
@@ -121,10 +122,10 @@ export class DataTableComponent implements OnInit {
   //#region Funtions
 
   private rebindEvent() {
-    if(this._hasEdit){
+    if (this._hasEdit) {
       this._hasAttachedListenerEdit = false;
     }
-    if(this._hasDelete){
+    if (this._hasDelete) {
       this._hasAttachedListenerDelete = false;
     }
   }
@@ -137,9 +138,7 @@ export class DataTableComponent implements OnInit {
     // Server data
     if (this.options.ajax) {
       this.table.DataTable().ajax.reload();
-    }
-    // Local data
-    else {
+    } else {
       this.table.DataTable().clear().draw();
       this.table.DataTable().rows.add(this.options.data); // Add new data
       this.table.DataTable().columns.adjust().draw(); // Redraw the DataTable
@@ -147,7 +146,7 @@ export class DataTableComponent implements OnInit {
   }
 
   getRowData(ele): any {
-    let tr = $(ele).closest("tr");
+    const tr = $(ele).closest('tr');
     return this.table.DataTable().row(tr).data();
   }
 

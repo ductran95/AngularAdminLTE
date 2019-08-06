@@ -4,7 +4,7 @@ import { PopupOption } from '@app/shared/models/options/popup-option';
 import { PopupComponent } from '@app/shared/components/popup/popup.component';
 import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
 import { City } from '@app/shared/models/master-data/city';
-import * as _ from "lodash";
+import * as _ from 'lodash';
 import { CityService } from '@app/shared/services/master-data/city.service';
 import { NgForm } from '@angular/forms';
 
@@ -53,7 +53,7 @@ export class CityComponent implements OnInit {
   ngOnInit() {
 
     this.searchParams = {
-      name: ""
+      name: ''
     };
 
     this.dataTableCityOptions = {
@@ -65,7 +65,7 @@ export class CityComponent implements OnInit {
             recordsFiltered: resp.length,
             data: resp
           });
-        })
+        });
       },
       columns: [
         { title: 'Id', data: 'id' },
@@ -82,17 +82,17 @@ export class CityComponent implements OnInit {
     };
 
     this.popupAddEditCityOptions = {
-      type: "",
-      title: "Add City",
-      okText: "Add",
-      cancelText: "Cancel"
+      type: '',
+      title: 'Add City',
+      okText: 'Add',
+      cancelText: 'Cancel'
     };
 
     this.popupDeleteCityOptions = {
-      type: "",
-      title: "Delete City",
-      okText: "Yes",
-      cancelText: "Cancel"
+      type: '',
+      title: 'Delete City',
+      okText: 'Yes',
+      cancelText: 'Cancel'
     };
 
     this.resetForm();
@@ -104,23 +104,23 @@ export class CityComponent implements OnInit {
 
   showPopupAdd() {
     this.resetForm();
-    this.popupAddEditCityOptions.okText = "Add";
-    this.popupAddEditCityOptions.title = "Add City";
+    this.popupAddEditCityOptions.okText = 'Add';
+    this.popupAddEditCityOptions.title = 'Add City';
     this.popupAddEditCity.show();
   }
 
   showPopupEdit(event) {
-    let data = this.dataTableCity.getRowData(event.currentTarget);
+    const data = this.dataTableCity.getRowData(event.currentTarget);
     this.cityService.getById(data.Id).subscribe((resp: City[]) => {
       this.model = resp[0];
-    })
-    this.popupAddEditCityOptions.okText = "Update";
-    this.popupAddEditCityOptions.title = "Update City";
+    });
+    this.popupAddEditCityOptions.okText = 'Update';
+    this.popupAddEditCityOptions.title = 'Update City';
     this.popupAddEditCity.show();
   }
 
   showPopupDelete(event) {
-    let data = this.dataTableCity.getRowData(event.currentTarget);
+    const data = this.dataTableCity.getRowData(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupDeleteCity.show();
   }
@@ -133,7 +133,7 @@ export class CityComponent implements OnInit {
     this.model = {
       id: null,
       name: ''
-    }
+    };
   }
 
   onCityFormSubmit(addCityForm: NgForm) {
@@ -145,9 +145,7 @@ export class CityComponent implements OnInit {
           this.popupAddEditCity.hide();
           this.refreshDataTable();
         });
-      }
-      // Add
-      else {
+      } else {
         this.cityService.add(this.model).subscribe((resp: any) => {
           this.resetForm();
           this.popupAddEditCity.hide();
