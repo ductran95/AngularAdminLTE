@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -19,37 +20,113 @@ export class LocalStorageService {
   //#region Funtions
 
   saveLocal(key: string, data: any) {
-    localStorage.setItem(key, JSON.stringify(data));
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      const objectName = keys[0];
+      keys.splice(0, 1);
+      const propertyPath = keys.join('.');
+      let object = this.getLocal(objectName);
+      if (object == undefined) {
+        object = {};
+      }
+      _.set(object, propertyPath, data);
+      localStorage.setItem(objectName, JSON.stringify(object));
+    } else {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
   }
 
   getLocal(key: string) {
-    const data = localStorage.getItem(key);
-    if (data != undefined) {
-      return JSON.parse(data);
-    } else {
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      const objectName = keys[0];
+      keys.splice(0, 1);
+      const propertyPath = keys.join('.');
+      const object = localStorage.getItem(objectName);
+      if (object != undefined) {
+        const data = JSON.parse(object);
+        return _.get(data, propertyPath);
+      }
       return undefined;
+    } else {
+      const data = localStorage.getItem(key);
+      if (data != undefined) {
+        return JSON.parse(data);
+      } else {
+        return undefined;
+      }
     }
   }
 
   clearLocal(key: string) {
-    localStorage.removeItem(key);
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      const objectName = keys[0];
+      keys.splice(0, 1);
+      const propertyPath = keys.join('.');
+      let object = this.getLocal(objectName);
+      if (object != undefined) {
+        object = _.omit(object, propertyPath);
+        this.saveLocal(objectName, object);
+      }
+    } else {
+      localStorage.removeItem(key);
+    }
   }
 
   saveSession(key: string, data: any) {
-    sessionStorage.setItem(key, JSON.stringify(data));
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      const objectName = keys[0];
+      keys.splice(0, 1);
+      const propertyPath = keys.join('.');
+      let object = this.getSession(objectName);
+      if (object == undefined) {
+        object = {};
+      }
+      _.set(object, propertyPath, data);
+      sessionStorage.setItem(objectName, JSON.stringify(object));
+    } else {
+      sessionStorage.setItem(key, JSON.stringify(data));
+    }
   }
 
   getSession(key: string) {
-    const data = sessionStorage.getItem(key);
-    if (data != undefined) {
-      return JSON.parse(data);
-    } else {
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      const objectName = keys[0];
+      keys.splice(0, 1);
+      const propertyPath = keys.join('.');
+      const object = sessionStorage.getItem(objectName);
+      if (object != undefined) {
+        const data = JSON.parse(object);
+        return _.get(data, propertyPath);
+      }
       return undefined;
+    } else {
+      const data = sessionStorage.getItem(key);
+      if (data != undefined) {
+        return JSON.parse(data);
+      } else {
+        return undefined;
+      }
     }
   }
 
   clearSession(key: string) {
-    sessionStorage.removeItem(key);
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      const objectName = keys[0];
+      keys.splice(0, 1);
+      const propertyPath = keys.join('.');
+      let object = this.getSession(objectName);
+      if (object != undefined) {
+        object = _.omit(object, propertyPath);
+        this.saveLocal(objectName, object);
+      }
+    } else {
+      sessionStorage.removeItem(key);
+    }
   }
 
   //#endregion
