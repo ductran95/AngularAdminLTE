@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainLayoutSidebarComponent } from '@app/shared/layouts/main-layout-sidebar/main-layout-sidebar.component';
+import { MainLayoutSidebarComponent } from '@app/shared/layouts/main-layout/sidebar/main-layout-sidebar.component';
 
 
 describe('MainLayoutSidebarComponent', () => {

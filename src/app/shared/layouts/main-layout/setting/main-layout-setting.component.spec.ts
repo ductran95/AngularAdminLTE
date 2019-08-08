@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout-setting/main-layout-setting.component';
+import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout/setting/main-layout-setting.component';
 
 
 describe('MainLayoutSettingComponent', () => {

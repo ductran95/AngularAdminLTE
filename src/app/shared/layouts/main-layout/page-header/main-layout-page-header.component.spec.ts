@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainLayoutPageHeaderComponent } from '@app/shared/layouts/main-layout-page-header/main-layout-page-header.component';
+import { MainLayoutPageHeaderComponent } from '@app/shared/layouts/main-layout/page-header/main-layout-page-header.component';
 
 
 describe('MainLayoutPageHeaderComponent', () => {
