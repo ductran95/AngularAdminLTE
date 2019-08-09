@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 
 @Component({
@@ -19,7 +18,7 @@ export class MainLayoutHeaderComponent implements OnInit {
 
   //#region Constructors
 
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService) { }
 
   //#endregion
 
@@ -49,7 +48,7 @@ export class MainLayoutHeaderComponent implements OnInit {
 
   logOut() {
     this.authService.logOut();
-    this.router.navigate(['']);
+    location.reload();
   }
 
   //#endregion
