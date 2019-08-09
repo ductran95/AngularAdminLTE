@@ -31,7 +31,7 @@
      <ul class="sidebar-menu" data-widget="tree">
       <li class="header">HEADER</li>
       <!-- Optionally, you can add icons to the links -->
-      <ng-template ngFor let-item [ngForOf]="menu">
+      <ng-template ngFor let-item [ngForOf]="sidebarMenu">
         <li *ngIf="!item.childrens"><a [routerLink]="item.path">{{item.name}}</a></li>
         <li *ngIf="item.childrens" class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>{{item.name}}</span>

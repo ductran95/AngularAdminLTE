@@ -1,4 +1,7 @@
 export const apiUrls = {
+    layout: {
+        getSidebarMenu: '/assets/data/sidebar-menu.json',
+    },
     user: {
         login: '/account/login',
         getall: '/account/getall',

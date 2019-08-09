@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { mainMenu } from '@app/shared/constants/mainMenu';
+import { SidebarItem } from '@app/shared/models/common/sidebar-item';
+import { LayoutService } from '@app/shared/services/common/layout.service';
 
 declare var $;
 
@@ -16,25 +17,29 @@ export class MainLayoutSidebarComponent implements OnInit {
 
   //#region Properties
 
-  menu: any[];
+  sidebarMenu: SidebarItem[];
 
   //#endregion
 
   //#region Constructors
 
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   //#endregion
 
   //#region OnInit
 
   ngOnInit() {
+    this.layoutService.getSidebarMenu().subscribe(
+      (sidebarMenu: SidebarItem[]) => {
+        this.sidebarMenu = sidebarMenu;
+      }
+    );
+
     $(document).ready(() => {
       const trees: any = $('[data-widget="tree"]');
       trees.tree();
     });
-
-    this.menu = mainMenu;
   }
 
   //#endregion
