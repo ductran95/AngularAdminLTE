@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { LogInParam } from '@app/shared/models/params/log-in-param';
-import { IcheckOption } from '@app/shared/models/options/icheck-option';
+import { IcheckOption } from '@app/shared/datas/options/icheck-option';
 import { AlertService } from '@app/shared/services/common/alert.service';
+import { LoginModel } from '@app/shared/datas/model/login-model';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   //#region Properties
 
-  logInParam: LogInParam;
+  loginModel: LoginModel;
 
   isRememberCheckboxOption: IcheckOption;
 
@@ -50,22 +50,18 @@ export class LoginComponent implements OnInit {
   //#region Funtions
 
   resetForm() {
-    this.logInParam = {
-      email: '',
-      password: '',
-      remember: false
-    };
+    this.loginModel = new LoginModel();
   }
 
   onLogInFormSubmit(logInForm: NgForm) {
     if (logInForm.valid) {
-      this.authService.logIn(this.logInParam).subscribe(
-        (resp: boolean) => {
+      this.authService.logIn(this.loginModel).subscribe(
+        resp => {
           const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
           this.router.navigate([returnUrl]);
         },
         error => {
-          this.alertService.error('Login failed!');
+          this.alertService.error(error);
         }
       );
     }

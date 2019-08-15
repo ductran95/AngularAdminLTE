@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { apiUrls } from '@app/shared/constants/apiUrls';
 import { HttpClient } from '@angular/common/http';
+import { SidebarItemModel } from '@app/shared/datas/model/sidebar-item-model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class LayoutService {
   //#region Funtions
 
   getSidebarMenu() {
-    return this.http.get(this.baseUrl + this.apiUrl.getSidebarMenu);
+    return this.http.get<SidebarItemModel[]>(this.baseUrl + this.apiUrl.getSidebarMenu);
   }
 
   //#endregion

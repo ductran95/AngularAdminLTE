@@ -1,4 +1,4 @@
-export class SelectOptionParam {
+export class SelectOptionModel {
     id?: number;
     name?: string;
 }

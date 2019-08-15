@@ -94,7 +94,8 @@
         "allow-pascal-case",
         "allow-snake-case"
       ]
-    }
+    },
+    "unified-signatures": false
   },
   "rulesDirectory": [
     "codelyzer"

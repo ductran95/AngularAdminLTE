@@ -4,11 +4,11 @@ export const apiUrls = {
     },
     user: {
         login: '/account/login',
-        getall: '/account/getall',
-        getbyid: '/account/getbyid',
+        getAll: '/account/getall',
+        getById: '/account/getbyid',
         add: '/account/addaccount',
         update: '/account/updateacount',
-        delelte: '/account/delelteaccount',
+        delete: '/account/delelteaccount',
     },
     city: {
         getAll: '/city/getall',

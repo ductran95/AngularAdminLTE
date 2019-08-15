@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataTableOption } from '@app/shared/models/options/data-table-option';
-import { PopupOption } from '@app/shared/models/options/popup-option';
+import { DataTableOption } from '@app/shared/datas/options/data-table-option';
+import { PopupOption } from '@app/shared/datas/options/popup-option';
 import { PopupComponent } from '@app/shared/components/popup/popup.component';
 import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
-import { City } from '@app/shared/models/master-data/city';
 import * as _ from 'lodash';
 import { CityService } from '@app/shared/services/master-data/city.service';
 import { NgForm } from '@angular/forms';
+import { CityModel } from '@app/shared/datas/model/city-model';
+import { AlertService } from '@app/shared/services/common/alert.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class CityComponent implements OnInit {
 
   @ViewChild('dataTableCity', { static: false }) dataTableCity: DataTableComponent;
 
-  model: City;
+  model: CityModel;
 
   searchParams: {
     name: string
@@ -44,7 +45,7 @@ export class CityComponent implements OnInit {
 
   //#region Constructors
 
-  constructor(private cityService: CityService) { }
+  constructor(private cityService: CityService, private alertService: AlertService) { }
 
   //#endregion
 
@@ -56,16 +57,21 @@ export class CityComponent implements OnInit {
       name: ''
     };
 
+    this.model = new CityModel();
+
     this.dataTableCityOptions = {
       data: [],
       ajax: (dataTablesParameters: any, callback) => {
-        this.cityService.getAll().subscribe((resp: City[]) => {
-          callback({
-            recordsTotal: resp.length,
-            recordsFiltered: resp.length,
-            data: resp
-          });
-        });
+        this.cityService.getAll().subscribe(
+          resp => {
+            callback({
+              recordsTotal: resp.length,
+              recordsFiltered: resp.length,
+              data: resp
+            });
+          },
+          error => this.alertService.error(error)
+        );
       },
       columns: [
         { title: 'Id', data: 'id' },
@@ -95,7 +101,6 @@ export class CityComponent implements OnInit {
       cancelText: 'Cancel'
     };
 
-    this.resetForm();
   }
 
   //#endregion
@@ -110,17 +115,20 @@ export class CityComponent implements OnInit {
   }
 
   showPopupEdit(event) {
-    const data = this.dataTableCity.getRowData(event.currentTarget);
-    this.cityService.getById(data.Id).subscribe((resp: City[]) => {
-      this.model = resp[0];
-    });
-    this.popupAddEditCityOptions.okText = 'Update';
-    this.popupAddEditCityOptions.title = 'Update City';
-    this.popupAddEditCity.show();
+    const data = this.dataTableCity.getRowData<CityModel>(event.currentTarget);
+    this.cityService.getById(data.id).subscribe(
+      resp => {
+        this.model = resp;
+        this.popupAddEditCityOptions.okText = 'Update';
+        this.popupAddEditCityOptions.title = 'Update City';
+        this.popupAddEditCity.show();
+      },
+      error => this.alertService.error(error)
+    );
   }
 
   showPopupDelete(event) {
-    const data = this.dataTableCity.getRowData(event.currentTarget);
+    const data = this.dataTableCity.getRowData<CityModel>(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupDeleteCity.show();
   }
@@ -130,38 +138,44 @@ export class CityComponent implements OnInit {
   }
 
   resetForm() {
-    this.model = {
-      id: null,
-      name: ''
-    };
+    this.model = new CityModel();
   }
 
   onCityFormSubmit(addCityForm: NgForm) {
     if (addCityForm.valid) {
       // Update
       if (this.model.id) {
-        this.cityService.update(this.model).subscribe((resp: any) => {
-          this.resetForm();
-          this.popupAddEditCity.hide();
-          this.refreshDataTable();
-        });
+        this.cityService.update(this.model).subscribe(
+          resp => {
+            this.resetForm();
+            this.popupAddEditCity.hide();
+            this.refreshDataTable();
+          },
+          error => this.alertService.error(error)
+        );
       } else {
-        this.cityService.add(this.model).subscribe((resp: any) => {
-          this.resetForm();
-          this.popupAddEditCity.hide();
-          this.refreshDataTable();
-        });
+        this.cityService.add(this.model).subscribe(
+          resp => {
+            this.resetForm();
+            this.popupAddEditCity.hide();
+            this.refreshDataTable();
+          },
+          error => this.alertService.error(error)
+        );
       }
     }
   }
 
   onDeleteCitySubmit(event) {
     if (this.model.id) {
-      this.cityService.delete(this.model.id).subscribe((resp: any) => {
-        this.resetForm();
-        this.popupDeleteCity.hide();
-        this.refreshDataTable();
-      });
+      this.cityService.delete(this.model.id).subscribe(
+        resp => {
+          this.resetForm();
+          this.popupDeleteCity.hide();
+          this.refreshDataTable();
+        },
+        error => this.alertService.error(error)
+      );
     }
   }
 

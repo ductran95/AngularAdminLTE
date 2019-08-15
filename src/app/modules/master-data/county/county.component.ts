@@ -1,15 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataTableOption } from '@app/shared/models/options/data-table-option';
-import { PopupOption } from '@app/shared/models/options/popup-option';
+import { DataTableOption } from '@app/shared/datas/options/data-table-option';
+import { PopupOption } from '@app/shared/datas/options/popup-option';
 import { PopupComponent } from '@app/shared/components/popup/popup.component';
 import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
-import { County } from '@app/shared/models/master-data/county';
 import * as _ from 'lodash';
 import { CityService } from '@app/shared/services/master-data/city.service';
-import { City } from '@app/shared/models/master-data/city';
 import { NgForm } from '@angular/forms';
 import { AlertService } from '@app/shared/services/common/alert.service';
-import { ToastrOption } from '@app/shared/models/options/toastr-option';
+import { CountyModel } from '@app/shared/datas/model/county-model';
+import { CityModel } from '@app/shared/datas/model/city-model';
 
 @Component({
   selector: 'master-data-county',
@@ -36,10 +35,10 @@ export class CountyComponent implements OnInit {
 
   @ViewChild('dataTableCounty', { static: false }) dataTableCounty: DataTableComponent;
 
-  model: County;
+  model: CountyModel;
 
   dropDownList: {
-    cityList: City[]
+    cityList: CityModel[]
   };
 
   searchParams: {
@@ -71,25 +70,28 @@ export class CountyComponent implements OnInit {
       name: ''
     };
 
-    // this.cityService.getAll().subscribe((resp: City[]) => {
-    //   this.dropDownList.cityList = resp;
-    // })
+    this.model = new CountyModel();
+
+    this.cityService.getAll().subscribe(
+      resp => {
+        this.dropDownList.cityList = resp;
+      },
+      error => this.alertService.error(error)
+    );
 
     this.dataTableCountyOptions = {
       data: [{
         id: 1,
-        countyName: 'HN',
-        cityId: 1
+        name: 'CG',
+        city: {
+          id: 1,
+          name: 'HN'
+        }
       }],
       columns: [
         { title: 'Id', data: 'id' },
-        { title: 'Name', data: 'countyName' },
-        {
-          title: 'City', data: (data) => {
-            const city = _.find<City>(this.dropDownList.cityList, { id: data.cityId });
-            return city ? city.name : '';
-          }
-        },
+        { title: 'Name', data: 'name' },
+        { title: 'City', data: 'city.name' },
       ],
       columnDefs: [],
       paging: true,
@@ -130,7 +132,7 @@ export class CountyComponent implements OnInit {
   }
 
   showPopupEdit(event) {
-    const data = this.dataTableCounty.getRowData(event.currentTarget);
+    const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupAddEditCountyOptions.okText = 'Update';
     this.popupAddEditCountyOptions.title = 'Update County';
@@ -138,7 +140,7 @@ export class CountyComponent implements OnInit {
   }
 
   showPopupDelete(event) {
-    const data = this.dataTableCounty.getRowData(event.currentTarget);
+    const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
     this.model = _.cloneDeep(data);
     this.popupDeleteCounty.show();
   }
@@ -148,11 +150,7 @@ export class CountyComponent implements OnInit {
   }
 
   resetForm() {
-    this.model = {
-      cityId: null,
-      countyName: '',
-      id: null
-    };
+    this.model = new CountyModel();
   }
 
   onCountyFormSubmit(addCountyForm: NgForm) {
@@ -193,7 +191,7 @@ export class CountyComponent implements OnInit {
 
   onSearchFormSubmit(searchCountyForm: NgForm) {
     if (searchCountyForm.valid) {
-      const city = _.find<City>(this.dropDownList.cityList, { id: this.searchParams.cityId });
+      const city = _.find<CityModel>(this.dropDownList.cityList, { id: this.searchParams.cityId });
       const cityName = city ? city.name : '';
       this.dataTableCounty.search([
         {

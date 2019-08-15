@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { apiUrls } from '@app/shared/constants/apiUrls';
-import { CountyModel } from '@app/shared/datas/model/county-model';
+import { UserModel } from '@app/shared/datas/model/user-model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { CountyResponse } from '@app/shared/datas/api-model/county-response';
+import { UserResponse } from '@app/shared/datas/api-model/user-response';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { CountyRequest } from '@app/shared/datas/api-model/county-request';
+import { UserRequest } from '@app/shared/datas/api-model/user-request';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CountyService {
+export class UserService {
 
   //#region Properties
 
   private baseUrl = environment.baseUrl;
-  private apiUrl = apiUrls.county;
+  private apiUrl = apiUrls.user;
 
   //#endregion
 
@@ -29,38 +29,38 @@ export class CountyService {
 
   //#region Funtions
 
-  getAll(): Observable<CountyModel[]> {
-    return this.http.get<CountyResponse>(this.baseUrl + this.apiUrl.getAll).pipe(
+  getAll(): Observable<UserModel[]> {
+    return this.http.get<UserResponse>(this.baseUrl + this.apiUrl.getAll).pipe(
       map(
         resp => {
           if (resp.statusCode == 200) {
-            return _.map(resp.data, item => new CountyModel(item));
+            return _.map(resp.data, item => new UserModel(item));
           }
           throw Error(resp.message);
         },
-        error => { throw Error('Cannot get counties!'); }
+        error => { throw Error('Cannot get users!'); }
       )
     );
   }
 
-  getById(id: number): Observable<CountyModel> {
+  getById(id: number): Observable<UserModel> {
     const data = new HttpParams().append('Id', id.toString());
-    return this.http.get<CountyResponse>(this.baseUrl + this.apiUrl.getById, { params: data }).pipe(
+    return this.http.get<UserResponse>(this.baseUrl + this.apiUrl.getById, { params: data }).pipe(
       map(
         resp => {
           if (resp.statusCode == 200 && resp.data.length > 0) {
-            return new CountyModel(resp[0]);
+            return new UserModel(resp[0]);
           }
           throw Error(resp.message);
         },
-        error => { throw Error('Cannot get county!'); }
+        error => { throw Error('Cannot get user!'); }
       )
     );
   }
 
-  add(county: CountyModel): Observable<string> {
-    const requestParams = new CountyRequest(county);
-    return this.http.post<CountyResponse>(this.baseUrl + this.apiUrl.add, requestParams).pipe(
+  add(user: UserModel): Observable<string> {
+    const requestParams = new UserRequest(user);
+    return this.http.post<UserResponse>(this.baseUrl + this.apiUrl.add, requestParams).pipe(
       map(
         resp => {
           if (resp.statusCode == 200) {
@@ -68,14 +68,14 @@ export class CountyService {
           }
           throw Error(resp.message);
         },
-        error => { throw Error('Cannot add county!'); }
+        error => { throw Error('Cannot add user!'); }
       )
     );
   }
 
-  update(county: CountyModel) {
-    const requestParams = new CountyRequest(county);
-    return this.http.put<CountyResponse>(this.baseUrl + this.apiUrl.update, requestParams).pipe(
+  update(user: UserModel) {
+    const requestParams = new UserRequest(user);
+    return this.http.put<UserResponse>(this.baseUrl + this.apiUrl.update, requestParams).pipe(
       map(
         resp => {
           if (resp.statusCode == 200) {
@@ -83,13 +83,13 @@ export class CountyService {
           }
           throw Error(resp.message);
         },
-        error => { throw Error('Cannot update county!'); }
+        error => { throw Error('Cannot update user!'); }
       )
     );
   }
 
   delete(id: number) {
-    return this.http.delete<CountyResponse>(this.baseUrl + this.apiUrl.delete + '/' + id).pipe(
+    return this.http.delete<UserResponse>(this.baseUrl + this.apiUrl.delete + '/' + id).pipe(
       map(
         resp => {
           if (resp.statusCode == 200) {
@@ -97,7 +97,7 @@ export class CountyService {
           }
           throw Error(resp.message);
         },
-        error => { throw Error('Cannot delete county!'); }
+        error => { throw Error('Cannot delete user!'); }
       )
     );
   }

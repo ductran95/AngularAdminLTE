@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarItem } from '@app/shared/models/common/sidebar-item';
 import { LayoutService } from '@app/shared/services/common/layout.service';
+import { AuthenticationService } from '@app/core/authentication/authentication.service';
+import { UserModel } from '@app/shared/datas/model/user-model';
+import { SidebarItemModel } from '@app/shared/datas/model/sidebar-item-model';
 
 declare var $;
 
@@ -17,13 +19,14 @@ export class MainLayoutSidebarComponent implements OnInit {
 
   //#region Properties
 
-  sidebarMenu: SidebarItem[];
+  sidebarMenu: SidebarItemModel[];
+  user: UserModel;
 
   //#endregion
 
   //#region Constructors
 
-  constructor(private layoutService: LayoutService) { }
+  constructor(private layoutService: LayoutService, private authService: AuthenticationService) { }
 
   //#endregion
 
@@ -31,10 +34,12 @@ export class MainLayoutSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.layoutService.getSidebarMenu().subscribe(
-      (sidebarMenu: SidebarItem[]) => {
-        this.sidebarMenu = sidebarMenu;
+      resp => {
+        this.sidebarMenu = resp;
       }
     );
+
+    this.user = this.authService.user;
 
     $(document).ready(() => {
       const trees: any = $('[data-widget="tree"]');

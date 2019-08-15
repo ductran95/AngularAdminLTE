@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { PopupOption } from '@app/shared/models/options/popup-option';
+import { PopupOption } from '@app/shared/datas/options/popup-option';
 
 import 'bootstrap';
 
@@ -13,7 +13,7 @@ export class PopupComponent implements OnInit {
   //#region Inputs, Outputs
 
   @Input() options: PopupOption;
-  @Output() onOKClick: EventEmitter<any> = new EventEmitter();
+  @Output() okClick: EventEmitter<any> = new EventEmitter();
 
   //#endregion
 
@@ -50,7 +50,7 @@ export class PopupComponent implements OnInit {
   }
 
   onOK(item: any) {
-    this.onOKClick.emit(item);
+    this.okClick.emit(item);
   }
   //#endregion
 

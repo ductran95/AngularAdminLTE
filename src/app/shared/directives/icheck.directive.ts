@@ -1,18 +1,18 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
-import { IcheckOption } from '@app/shared/models/options/icheck-option';
+import { IcheckOption } from '@app/shared/datas/options/icheck-option';
 
 import 'icheck';
 
 @Directive({
   // tslint:disable-next-line: directive-selector
-  selector: '[icheck]',
+  selector: '[commonIcheck]',
 })
 export class IcheckDirective implements OnInit {
 
   //#region Inputs, Outputs
 
-  @Input('icheck') options: IcheckOption;
+  @Input() options: IcheckOption;
 
   //#endregion
 

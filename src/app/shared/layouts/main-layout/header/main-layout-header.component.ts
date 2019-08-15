@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
+import { UserModel } from '@app/shared/datas/model/user-model';
 
 @Component({
   selector: 'main-layout-header',
@@ -14,6 +15,8 @@ export class MainLayoutHeaderComponent implements OnInit {
 
   //#region Properties
 
+  user: UserModel;
+
   //#endregion
 
   //#region Constructors
@@ -24,7 +27,9 @@ export class MainLayoutHeaderComponent implements OnInit {
 
   //#region OnInit
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = this.authService.user;
+  }
 
   //#endregion
 

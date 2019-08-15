@@ -1,4 +1,4 @@
-export class DataTableSearchParam {
+export class DataTableSearchModel {
     columnIndex?: number;
     searchKey?: string;
 }

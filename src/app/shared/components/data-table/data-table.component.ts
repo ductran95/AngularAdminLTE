@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter, Renderer2, AfterViewChecked } from '@angular/core';
-import { DataTableOption } from '@app/shared/models/options/data-table-option';
-import { DataTableSearchParam } from '@app/shared/models/params/data-table-search-param';
+import { DataTableOption } from '@app/shared/datas/options/data-table-option';
 
 import 'datatables.net';
+import { DataTableSearchModel } from '@app/shared/datas/model/data-table-search-model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'common-data-table',
@@ -16,9 +17,9 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
   @Input() options: DataTableOption;
   @Input() title: string;
 
-  @Output() onAddClick: EventEmitter<any> = new EventEmitter();
-  @Output() onEditClick: EventEmitter<any> = new EventEmitter();
-  @Output() onDeleteClick: EventEmitter<any> = new EventEmitter();
+  @Output() addClick: EventEmitter<any> = new EventEmitter();
+  @Output() editClick: EventEmitter<any> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<any> = new EventEmitter();
 
   //#endregion
 
@@ -96,7 +97,7 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < buttons.length; i++) {
           this.renderer.listen(buttons[i], 'click', (evt) => {
-            this.onEditClick.emit(evt);
+            this.editClick.emit(evt);
           });
         }
         this._hasAttachedListenerEdit = true;
@@ -109,7 +110,7 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < buttons.length; i++) {
           this.renderer.listen(buttons[i], 'click', (evt) => {
-            this.onDeleteClick.emit(evt);
+            this.deleteClick.emit(evt);
           });
         }
         this._hasAttachedListenerEdit = true;
@@ -131,7 +132,7 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
   }
 
   private onAdd(item: any) {
-    this.onAddClick.emit(item);
+    this.addClick.emit(item);
   }
 
   refreshData() {
@@ -145,12 +146,14 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  getRowData(ele): any {
+  getRowData<T>(ele): T {
     const tr = $(ele).closest('tr');
-    return this.table.DataTable().row(tr).data();
+    let data = null;
+    data = _.assign({}, this.table.DataTable().row(tr).data());
+    return data as T;
   }
 
-  search(searchParams: DataTableSearchParam[]) {
+  search(searchParams: DataTableSearchModel[]) {
     searchParams.forEach(element => {
       this.table.DataTable().columns(element.columnIndex).search(element.searchKey);
     });
