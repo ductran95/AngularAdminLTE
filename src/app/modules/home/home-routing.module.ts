@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CityComponent } from '@app/modules/master-data/city/city.component';
-import { CountyComponent } from '@app/modules/master-data/county/county.component';
+import { HomeComponent } from '@app/modules/home/home/home.component';
 import { MainLayoutComponent } from '@app/shared/layouts/main-layout/main-layout.component';
 
 
@@ -11,12 +10,8 @@ const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       {
-        path: 'city',
-        component: CityComponent
-      },
-      {
-        path: 'county',
-        component: CountyComponent
+        path: '',
+        component: HomeComponent
       }
     ]
   }
@@ -26,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MasterDataRoutingModule { }
+export class HomeRoutingModule { }

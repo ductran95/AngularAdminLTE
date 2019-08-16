@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { CountyService } from '@app/shared/services/master-data/county.service';
+import { CountyService } from '@app/core/services/data/county.service';
 
 
 describe('CountyService', () => {

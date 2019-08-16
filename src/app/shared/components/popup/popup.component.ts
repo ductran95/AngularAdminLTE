@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { PopupOption } from '@app/shared/datas/options/popup-option';
+import { PopupOption } from '@app/core/models/options/popup-option';
 
 import 'bootstrap';
 

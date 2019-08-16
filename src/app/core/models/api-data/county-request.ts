@@ -1,4 +1,4 @@
-import { CountyModel } from '@app/shared/datas/model/county-model';
+import { CountyModel } from '@app/core/models/data/county-model';
 
 export class CountyRequest {
     constructor(model: CountyModel) {

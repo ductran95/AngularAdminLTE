@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter, Renderer2, AfterViewChecked } from '@angular/core';
-import { DataTableOption } from '@app/shared/datas/options/data-table-option';
+import { DataTableOption } from '@app/core/models/options/data-table-option';
 
 import 'datatables.net';
-import { DataTableSearchModel } from '@app/shared/datas/model/data-table-search-model';
+import { DataTableSearchModel } from '@app/core/models/data/data-table-search-model';
 import * as _ from 'lodash';
 
 @Component({

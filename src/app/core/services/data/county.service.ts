@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { apiUrls } from '@app/shared/constants/apiUrls';
-import { CountyModel } from '@app/shared/datas/model/county-model';
+import { apiUrls } from '@app/core/constants/apiUrls';
+import { CountyModel } from '@app/core/models/data/county-model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { CountyResponse } from '@app/shared/datas/api-model/county-response';
+import { CountyResponse } from '@app/core/models/api-data/county-response';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { CountyRequest } from '@app/shared/datas/api-model/county-request';
+import { CountyRequest } from '@app/core/models/api-data/county-request';
 
 @Injectable({
   providedIn: 'root'

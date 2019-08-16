@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core/authentication/authentication.service';
+import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { IcheckOption } from '@app/shared/datas/options/icheck-option';
-import { AlertService } from '@app/shared/services/common/alert.service';
-import { LoginModel } from '@app/shared/datas/model/login-model';
+import { IcheckOption } from '@app/core/models/options/icheck-option';
+import { AlertService } from '@app/core/services/common/alert.service';
+import { LoginModel } from '@app/core/models/data/login-model';
 
 
 @Component({

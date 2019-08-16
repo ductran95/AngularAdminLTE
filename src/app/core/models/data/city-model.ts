@@ -1,4 +1,4 @@
-import { CityResponseData } from '@app/shared/datas/api-model/city-response';
+import { CityResponseData } from '@app/core/models/api-data/city-response';
 
 export class CityModel {
     constructor();

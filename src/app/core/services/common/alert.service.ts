@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'toastr';
-import { ToastrOption } from '@app/shared/datas/options/toastr-option';
+import { ToastrOption } from '@app/core/models/options/toastr-option';
 import * as _ from 'lodash';
 
 @Injectable({
