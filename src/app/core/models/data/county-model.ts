@@ -1,5 +1,5 @@
-import { CityModel } from '@app/shared/datas/model/city-model';
-import { CountyResponseData } from '@app/shared/datas/api-model/county-response';
+import { CityModel } from '@app/core/models/data/city-model';
+import { CountyResponseData } from '@app/core/models/api-data/county-response';
 
 export class CountyModel {
     constructor();

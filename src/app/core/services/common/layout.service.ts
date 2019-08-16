@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { apiUrls } from '@app/shared/constants/apiUrls';
+import { apiUrls } from '@app/core/constants/apiUrls';
 import { HttpClient } from '@angular/common/http';
-import { SidebarItemModel } from '@app/shared/datas/model/sidebar-item-model';
+import { SidebarItemModel } from '@app/core/models/data/sidebar-item-model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataTableOption } from '@app/shared/datas/options/data-table-option';
-import { PopupOption } from '@app/shared/datas/options/popup-option';
+import { DataTableOption } from '@app/core/models/options/data-table-option';
+import { PopupOption } from '@app/core/models/options/popup-option';
 import { PopupComponent } from '@app/shared/components/popup/popup.component';
 import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
 import * as _ from 'lodash';
-import { CityService } from '@app/shared/services/master-data/city.service';
+import { CityService } from '@app/core/services/data/city.service';
 import { NgForm } from '@angular/forms';
-import { CityModel } from '@app/shared/datas/model/city-model';
-import { AlertService } from '@app/shared/services/common/alert.service';
+import { CityModel } from '@app/core/models/data/city-model';
+import { AlertService } from '@app/core/services/common/alert.service';
 
 
 @Component({

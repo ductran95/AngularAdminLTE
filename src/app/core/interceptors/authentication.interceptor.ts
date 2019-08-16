@@ -3,8 +3,8 @@ import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders
 } from '@angular/common/http';
 import { environment } from '@env/environment';
-import { apiUrls } from '@app/shared/constants/apiUrls';
-import { AuthenticationService } from '@app/core/authentication/authentication.service';
+import { apiUrls } from '@app/core/constants/apiUrls';
+import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
 
 
 @Injectable({

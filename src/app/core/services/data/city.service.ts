@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { apiUrls } from '@app/shared/constants/apiUrls';
-import { CityModel } from '@app/shared/datas/model/city-model';
+import { apiUrls } from '@app/core/constants/apiUrls';
+import { CityModel } from '@app/core/models/data/city-model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { CityResponse } from '@app/shared/datas/api-model/city-response';
+import { CityResponse } from '@app/core/models/api-data/city-response';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { CityRequest } from '@app/shared/datas/api-model/city-request';
+import { CityRequest } from '@app/core/models/api-data/city-request';
 
 @Injectable({
   providedIn: 'root'

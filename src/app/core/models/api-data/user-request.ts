@@ -1,4 +1,4 @@
-import { UserModel } from '@app/shared/datas/model/user-model';
+import { UserModel } from '@app/core/models/data/user-model';
 
 export class UserRequest {
     constructor(model: UserModel) {

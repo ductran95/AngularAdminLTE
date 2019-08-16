@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core/authentication/authentication.service';
-import { UserModel } from '@app/shared/datas/model/user-model';
+import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { UserModel } from '@app/core/models/data/user-model';
 
 @Component({
   selector: 'main-layout-header',

@@ -1,4 +1,4 @@
-import { UserResponseData } from '@app/shared/datas/api-model/user-response';
+import { UserResponseData } from '@app/core/models/api-data/user-response';
 
 export class UserModel {
     constructor();

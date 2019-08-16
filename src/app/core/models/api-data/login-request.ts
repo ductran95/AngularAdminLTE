@@ -1,4 +1,4 @@
-import { LoginModel } from '@app/shared/datas/model/login-model';
+import { LoginModel } from '@app/core/models/data/login-model';
 
 export class LoginRequest {
     constructor(model: LoginModel) {

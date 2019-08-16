@@ -1,4 +1,4 @@
-import { CityModel } from '@app/shared/datas/model/city-model';
+import { CityModel } from '@app/core/models/data/city-model';
 
 export class CityRequest {
     constructor(model: CityModel) {

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { LoginModel } from '@app/shared/datas/model/login-model';
+import { LoginModel } from '@app/core/models/data/login-model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
-import { apiUrls } from '@app/shared/constants/apiUrls';
+import { apiUrls } from '@app/core/constants/apiUrls';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LocalStorageService } from '@app/shared/services/common/local-storage.service';
-import { LoginRequest } from '@app/shared/datas/api-model/login-request';
-import { LoginResponse } from '@app/shared/datas/api-model/login-response';
-import { UserModel } from '@app/shared/datas/model/user-model';
+import { LocalStorageService } from '@app/core/services/common/local-storage.service';
+import { LoginRequest } from '@app/core/models/api-data/login-request';
+import { LoginResponse } from '@app/core/models/api-data/login-response';
+import { UserModel } from '@app/core/models/data/user-model';
 
 @Injectable({
   providedIn: 'root'

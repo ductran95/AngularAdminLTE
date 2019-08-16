@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '@app/shared/services/common/layout.service';
-import { AuthenticationService } from '@app/core/authentication/authentication.service';
-import { UserModel } from '@app/shared/datas/model/user-model';
-import { SidebarItemModel } from '@app/shared/datas/model/sidebar-item-model';
+import { LayoutService } from '@app/core/services/common/layout.service';
+import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { UserModel } from '@app/core/models/data/user-model';
+import { SidebarItemModel } from '@app/core/models/data/sidebar-item-model';
 
 declare var $;
 

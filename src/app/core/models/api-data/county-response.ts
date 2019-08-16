@@ -1,7 +1,7 @@
-import { BaseResponse } from '@app/shared/datas/api-model/base-response';
+import { BaseResponse } from '@app/core/models/api-data/base-response';
 
 export class CountyResponse extends BaseResponse {
-    data: CountyResponseData[]
+    data: CountyResponseData[];
 }
 
 export class CountyResponseData {

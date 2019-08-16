@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { apiUrls } from '@app/shared/constants/apiUrls';
-import { UserModel } from '@app/shared/datas/model/user-model';
+import { apiUrls } from '@app/core/constants/apiUrls';
+import { UserModel } from '@app/core/models/data/user-model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { UserResponse } from '@app/shared/datas/api-model/user-response';
+import { UserResponse } from '@app/core/models/api-data/user-response';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { UserRequest } from '@app/shared/datas/api-model/user-request';
+import { UserRequest } from '@app/core/models/api-data/user-request';
 
 @Injectable({
   providedIn: 'root'
