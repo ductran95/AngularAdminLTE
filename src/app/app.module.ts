@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { CoreModule } from '@app/core/core.module';
 import * as $ from 'jquery';
 import { HomeModule } from './modules/home/home.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomeModule } from './modules/home/home.module';
     AppRoutingModule,
     MasterDataModule,
     UserModule,
-    CoreModule,
+    CoreModule.forRoot(),
+    SharedModule,
     HomeModule
   ],
   providers: [],

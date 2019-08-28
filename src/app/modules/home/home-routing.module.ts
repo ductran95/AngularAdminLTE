@@ -7,13 +7,7 @@ import { MainLayoutComponent } from '@app/shared/layouts/main-layout/main-layout
 const routes: Routes = [
   {
     path: '',
-    component: MainLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: HomeComponent
-      }
-    ]
+    component: HomeComponent
   }
 ];
 

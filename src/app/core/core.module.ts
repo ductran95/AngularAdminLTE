@@ -1,20 +1,41 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticationInterceptor } from '@app/core/interceptors/authentication.interceptor';
+import { AuthenticationGuard } from '@app/core/guards/authentication.guard';
+import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { AlertService } from '@app/core/services/common/alert.service';
+import { LocalStorageService } from '@app/core/services/common/local-storage.service';
+import { CityService } from '@app/core/services/data/city.service';
+import { CountyService } from '@app/core/services/data/county.service';
+import { UserService } from '@app/core/services/data/user.service';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthenticationInterceptor,
-      multi: true
-    }
-  ],
+    CommonModule,
+    HttpClientModule
+  ]
 })
-export class CoreModule { }
+export class CoreModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: AuthenticationInterceptor,
+          multi: true
+        },
+        AuthenticationGuard,
+        AuthenticationService,
+        AlertService,
+        LocalStorageService,
+        CityService,
+        CountyService,
+        UserService
+      ]
+    };
+  }
+ }

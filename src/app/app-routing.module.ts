@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticationGuard } from '@app/core/guards/authentication.guard';
+import { MainLayoutComponent } from '@app/shared/layouts/main-layout/main-layout.component';
 
 
 const routes: Routes = [
@@ -9,9 +10,15 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthenticationGuard],
     runGuardsAndResolvers: 'always',
+    component: MainLayoutComponent,
     children: [
       {
         path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
         loadChildren: () => import('@app/modules/home/home.module').then(mod => mod.HomeModule)
       },
       {

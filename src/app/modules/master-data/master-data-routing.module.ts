@@ -7,18 +7,12 @@ import { MainLayoutComponent } from '@app/shared/layouts/main-layout/main-layout
 
 const routes: Routes = [
   {
-    path: '',
-    component: MainLayoutComponent,
-    children: [
-      {
-        path: 'city',
-        component: CityComponent
-      },
-      {
-        path: 'county',
-        component: CountyComponent
-      }
-    ]
+    path: 'city',
+    component: CityComponent
+  },
+  {
+    path: 'county',
+    component: CountyComponent
   }
 ];
 
