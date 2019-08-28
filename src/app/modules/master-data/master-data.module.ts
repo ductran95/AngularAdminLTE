@@ -8,12 +8,12 @@ import { CountyComponent } from '@app/modules/master-data/county/county.componen
 
 
 @NgModule({
-  declarations: [CityComponent, CountyComponent],
-  imports: [
-    CommonModule,
-    MasterDataRoutingModule,
-    SharedModule,
-    FormsModule,
-  ]
+    declarations: [CityComponent, CountyComponent],
+    imports: [
+        CommonModule,
+        MasterDataRoutingModule,
+        SharedModule,
+        FormsModule,
+    ]
 })
 export class MasterDataModule { }

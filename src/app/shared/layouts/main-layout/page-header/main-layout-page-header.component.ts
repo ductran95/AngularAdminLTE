@@ -1,37 +1,37 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'main-layout-page-header',
-  templateUrl: './main-layout-page-header.component.html',
-  styleUrls: ['./main-layout-page-header.component.scss']
+    selector: 'main-layout-page-header',
+    templateUrl: './main-layout-page-header.component.html',
+    styleUrls: ['./main-layout-page-header.component.scss']
 })
 export class MainLayoutPageHeaderComponent implements OnInit {
 
-  //#region Inputs
+    //#region Inputs
 
-  @Input() title: string;
-  @Input() description: string;
+    @Input() title: string;
+    @Input() description: string;
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor() { }
+    constructor() { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() { }
+    ngOnInit() { }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  //#endregion
+    //#endregion
 
 }

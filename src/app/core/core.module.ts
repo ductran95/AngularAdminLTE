@@ -12,30 +12,30 @@ import { UserService } from '@app/core/services/data/user.service';
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ]
+    declarations: [],
+    imports: [
+        CommonModule,
+        HttpClientModule
+    ]
 })
 export class CoreModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: CoreModule,
-      providers: [
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthenticationInterceptor,
-          multi: true
-        },
-        AuthenticationGuard,
-        AuthenticationService,
-        AlertService,
-        LocalStorageService,
-        CityService,
-        CountyService,
-        UserService
-      ]
-    };
-  }
- }
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: CoreModule,
+            providers: [
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: AuthenticationInterceptor,
+                    multi: true
+                },
+                AuthenticationGuard,
+                AuthenticationService,
+                AlertService,
+                LocalStorageService,
+                CityService,
+                CountyService,
+                UserService
+            ]
+        };
+    }
+}

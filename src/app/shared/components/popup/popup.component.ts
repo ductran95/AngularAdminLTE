@@ -4,54 +4,54 @@ import { PopupOption } from '@app/core/models/options/popup-option';
 import 'bootstrap';
 
 @Component({
-  selector: 'common-popup',
-  templateUrl: './popup.component.html',
-  styleUrls: ['./popup.component.scss']
+    selector: 'common-popup',
+    templateUrl: './popup.component.html',
+    styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit {
 
-  //#region Inputs, Outputs
+    //#region Inputs, Outputs
 
-  @Input() options: PopupOption;
-  @Output() okClick: EventEmitter<any> = new EventEmitter();
+    @Input() options: PopupOption;
+    @Output() okClick: EventEmitter<any> = new EventEmitter();
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  @ViewChild('modal', { static: true }) modalElement;
+    @ViewChild('modal', { static: true }) modalElement;
 
-  modal: JQuery;
+    modal: JQuery;
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor() { }
+    constructor() { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() {
-    this.modal = $(this.modalElement.nativeElement);
-  }
+    ngOnInit() {
+        this.modal = $(this.modalElement.nativeElement);
+    }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  show() {
-    this.modal.modal('show');
-  }
+    show() {
+        this.modal.modal('show');
+    }
 
-  hide() {
-    this.modal.modal('hide');
-  }
+    hide() {
+        this.modal.modal('hide');
+    }
 
-  onOK(item: any) {
-    this.okClick.emit(item);
-  }
-  //#endregion
+    onOK(item: any) {
+        this.okClick.emit(item);
+    }
+    //#endregion
 
 }

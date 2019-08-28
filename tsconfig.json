@@ -3,10 +3,18 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@app/*": ["app/*"],
-      "@app/core/*": ["app/core/*"],
-      "@app/shared/*": ["app/shared/*"],
-      "@env/*": ["environments/*"]
+      "@app/*": [
+        "app/*"
+      ],
+      "@app/core/*": [
+        "app/core/*"
+      ],
+      "@app/shared/*": [
+        "app/shared/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

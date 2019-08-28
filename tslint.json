@@ -12,13 +12,25 @@
     "directive-selector": [
       true,
       "attribute",
-      ["app", "main", "user", "master-data", "common"],
+      [
+        "app",
+        "main",
+        "user",
+        "master-data",
+        "common"
+      ],
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      ["app", "main", "user", "master-data", "common"],
+      [
+        "app",
+        "main",
+        "user",
+        "master-data",
+        "common"
+      ],
       "kebab-case"
     ],
     "import-blacklist": [

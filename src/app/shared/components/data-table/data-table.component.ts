@@ -6,159 +6,159 @@ import { DataTableSearchModel } from '@app/core/models/data/data-table-search-mo
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'common-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.scss']
+    selector: 'common-data-table',
+    templateUrl: './data-table.component.html',
+    styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit, AfterViewChecked {
 
-  //#region Inputs, Outputs
+    //#region Inputs, Outputs
 
-  @Input() options: DataTableOption;
-  @Input() title: string;
+    @Input() options: DataTableOption;
+    @Input() title: string;
 
-  @Output() addClick: EventEmitter<any> = new EventEmitter();
-  @Output() editClick: EventEmitter<any> = new EventEmitter();
-  @Output() deleteClick: EventEmitter<any> = new EventEmitter();
+    @Output() addClick: EventEmitter<any> = new EventEmitter();
+    @Output() editClick: EventEmitter<any> = new EventEmitter();
+    @Output() deleteClick: EventEmitter<any> = new EventEmitter();
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  @ViewChild('dataTable', { static: true }) tableElement;
-  table: JQuery;
+    @ViewChild('dataTable', { static: true }) tableElement;
+    table: JQuery;
 
-  private _hasAttachedListenerEdit = false;
-  private _hasAttachedListenerDelete = false;
+    private _hasAttachedListenerEdit = false;
+    private _hasAttachedListenerDelete = false;
 
-  protected _hasAdd = false;
-  private _hasEdit = false;
-  private _hasDelete = false;
+    protected _hasAdd = false;
+    private _hasEdit = false;
+    private _hasDelete = false;
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor(private renderer: Renderer2) { }
+    constructor(private renderer: Renderer2) { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() {
+    ngOnInit() {
 
-    if (!this.options) {
-      this.options = {
-        data: [],
-        columns: [],
-        columnDefs: [],
-        paging: true,
-        lengthChange: false,
-        searching: false,
-        ordering: true,
-        info: true,
-        autoWidth: false,
-        drawCallback: () => {
-          this._hasAttachedListenerEdit = false;
-          this._hasAttachedListenerDelete = false;
-        },
-        dom: 'lrtip'
-      };
-    } else {
-      this._hasAdd = this.options.actions.includes('Add');
-      this._hasEdit = this.options.actions.includes('Edit');
-      this._hasDelete = this.options.actions.includes('Delete');
+        if (!this.options) {
+            this.options = {
+                data: [],
+                columns: [],
+                columnDefs: [],
+                paging: true,
+                lengthChange: false,
+                searching: false,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                drawCallback: () => {
+                    this._hasAttachedListenerEdit = false;
+                    this._hasAttachedListenerDelete = false;
+                },
+                dom: 'lrtip'
+            };
+        } else {
+            this._hasAdd = this.options.actions.includes('Add');
+            this._hasEdit = this.options.actions.includes('Edit');
+            this._hasDelete = this.options.actions.includes('Delete');
 
-      if (this._hasEdit || this._hasDelete) {
-        this.options.columns.push({
-          title: 'Actions',
-          data: null,
-          defaultContent: (this._hasEdit ? '<a id=editButton class="btn btn-app" ><i class="fa fa-edit"></i> Edit</a>' : '')
-          + (this._hasDelete ? '<a class="btn btn-app" id=deleteButton><i class="fa fa-trash"></i> Delete</a>' : '')
+            if (this._hasEdit || this._hasDelete) {
+                this.options.columns.push({
+                    title: 'Actions',
+                    data: null,
+                    defaultContent: (this._hasEdit ? '<a id=editButton class="btn btn-app" ><i class="fa fa-edit"></i> Edit</a>' : '')
+                        + (this._hasDelete ? '<a class="btn btn-app" id=deleteButton><i class="fa fa-trash"></i> Delete</a>' : '')
+                });
+            }
+
+            this.options.dom = 'lrtip';
+
+            this.options.drawCallback = () => {
+                this.rebindEvent();
+            };
+        }
+
+        this.table = $(this.tableElement.nativeElement);
+
+        this.table.DataTable(this.options);
+    }
+
+    ngAfterViewChecked() {
+        if (!this._hasAttachedListenerEdit) {
+            const buttons = this.tableElement.nativeElement.querySelectorAll('#editButton');
+            if (buttons.length > 0) {
+                // tslint:disable-next-line: prefer-for-of
+                for (let i = 0; i < buttons.length; i++) {
+                    this.renderer.listen(buttons[i], 'click', (evt) => {
+                        this.editClick.emit(evt);
+                    });
+                }
+                this._hasAttachedListenerEdit = true;
+            }
+        }
+
+        if (!this._hasAttachedListenerDelete) {
+            const buttons = this.tableElement.nativeElement.querySelectorAll('#deleteButton');
+            if (buttons.length > 0) {
+                // tslint:disable-next-line: prefer-for-of
+                for (let i = 0; i < buttons.length; i++) {
+                    this.renderer.listen(buttons[i], 'click', (evt) => {
+                        this.deleteClick.emit(evt);
+                    });
+                }
+                this._hasAttachedListenerEdit = true;
+            }
+        }
+    }
+
+    //#endregion
+
+    //#region Funtions
+
+    private rebindEvent() {
+        if (this._hasEdit) {
+            this._hasAttachedListenerEdit = false;
+        }
+        if (this._hasDelete) {
+            this._hasAttachedListenerDelete = false;
+        }
+    }
+
+    private onAdd(item: any) {
+        this.addClick.emit(item);
+    }
+
+    refreshData() {
+        // Server data
+        if (this.options.ajax) {
+            this.table.DataTable().ajax.reload();
+        } else {
+            this.table.DataTable().clear().draw();
+            this.table.DataTable().rows.add(this.options.data); // Add new data
+            this.table.DataTable().columns.adjust().draw(); // Redraw the DataTable
+        }
+    }
+
+    getRowData<T>(ele): T {
+        const tr = $(ele).closest('tr');
+        let data = null;
+        data = _.assign({}, this.table.DataTable().row(tr).data());
+        return data as T;
+    }
+
+    search(searchParams: DataTableSearchModel[]) {
+        searchParams.forEach(element => {
+            this.table.DataTable().columns(element.columnIndex).search(element.searchKey);
         });
-      }
-
-      this.options.dom = 'lrtip';
-
-      this.options.drawCallback = () => {
-        this.rebindEvent();
-      };
+        this.table.DataTable().draw();
     }
 
-    this.table = $(this.tableElement.nativeElement);
-
-    this.table.DataTable(this.options);
-  }
-
-  ngAfterViewChecked() {
-    if (!this._hasAttachedListenerEdit) {
-      const buttons = this.tableElement.nativeElement.querySelectorAll('#editButton');
-      if (buttons.length > 0) {
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < buttons.length; i++) {
-          this.renderer.listen(buttons[i], 'click', (evt) => {
-            this.editClick.emit(evt);
-          });
-        }
-        this._hasAttachedListenerEdit = true;
-      }
-    }
-
-    if (!this._hasAttachedListenerDelete) {
-      const buttons = this.tableElement.nativeElement.querySelectorAll('#deleteButton');
-      if (buttons.length > 0) {
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < buttons.length; i++) {
-          this.renderer.listen(buttons[i], 'click', (evt) => {
-            this.deleteClick.emit(evt);
-          });
-        }
-        this._hasAttachedListenerEdit = true;
-      }
-    }
-  }
-
-  //#endregion
-
-  //#region Funtions
-
-  private rebindEvent() {
-    if (this._hasEdit) {
-      this._hasAttachedListenerEdit = false;
-    }
-    if (this._hasDelete) {
-      this._hasAttachedListenerDelete = false;
-    }
-  }
-
-  private onAdd(item: any) {
-    this.addClick.emit(item);
-  }
-
-  refreshData() {
-    // Server data
-    if (this.options.ajax) {
-      this.table.DataTable().ajax.reload();
-    } else {
-      this.table.DataTable().clear().draw();
-      this.table.DataTable().rows.add(this.options.data); // Add new data
-      this.table.DataTable().columns.adjust().draw(); // Redraw the DataTable
-    }
-  }
-
-  getRowData<T>(ele): T {
-    const tr = $(ele).closest('tr');
-    let data = null;
-    data = _.assign({}, this.table.DataTable().row(tr).data());
-    return data as T;
-  }
-
-  search(searchParams: DataTableSearchModel[]) {
-    searchParams.forEach(element => {
-      this.table.DataTable().columns(element.columnIndex).search(element.searchKey);
-    });
-    this.table.DataTable().draw();
-  }
-
-  //#endregion
+    //#endregion
 }

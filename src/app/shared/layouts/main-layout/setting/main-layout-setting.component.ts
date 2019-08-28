@@ -1,34 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'main-layout-setting',
-  templateUrl: './main-layout-setting.component.html',
-  styleUrls: ['./main-layout-setting.component.scss']
+    selector: 'main-layout-setting',
+    templateUrl: './main-layout-setting.component.html',
+    styleUrls: ['./main-layout-setting.component.scss']
 })
 export class MainLayoutSettingComponent implements OnInit {
 
-  //#region Inputs
+    //#region Inputs
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor() { }
+    constructor() { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() {}
+    ngOnInit() { }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  //#endregion
+    //#endregion
 
 }

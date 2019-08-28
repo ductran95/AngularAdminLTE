@@ -3,59 +3,59 @@ import { AuthenticationService } from '@app/core/services/authentication/authent
 import { UserModel } from '@app/core/models/data/user-model';
 
 @Component({
-  selector: 'main-layout-header',
-  templateUrl: './main-layout-header.component.html',
-  styleUrls: ['./main-layout-header.component.scss']
+    selector: 'main-layout-header',
+    templateUrl: './main-layout-header.component.html',
+    styleUrls: ['./main-layout-header.component.scss']
 })
 export class MainLayoutHeaderComponent implements OnInit {
 
-  //#region Inputs, Outputs
+    //#region Inputs, Outputs
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  user: UserModel;
+    user: UserModel;
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor(private authService: AuthenticationService) { }
+    constructor(private authService: AuthenticationService) { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() {
-    this.user = this.authService.user;
-  }
+    ngOnInit() {
+        this.user = this.authService.user;
+    }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  toggleMessageMenu() {
-    $('.dropdown.messages-menu .dropdown-menu').dropdown('toggle');
-  }
+    toggleMessageMenu() {
+        $('.dropdown.messages-menu .dropdown-menu').dropdown('toggle');
+    }
 
-  toggleNotificationMenu() {
-    $('.dropdown.notifications-menu .dropdown-menu').dropdown('toggle');
-  }
+    toggleNotificationMenu() {
+        $('.dropdown.notifications-menu .dropdown-menu').dropdown('toggle');
+    }
 
-  toggleTaskMenu() {
-    $('.dropdown.tasks-menu .dropdown-menu').dropdown('toggle');
-  }
+    toggleTaskMenu() {
+        $('.dropdown.tasks-menu .dropdown-menu').dropdown('toggle');
+    }
 
-  toggleUserMenu() {
-    $('.dropdown.user.user-menu .dropdown-menu').dropdown('toggle');
-  }
+    toggleUserMenu() {
+        $('.dropdown.user.user-menu .dropdown-menu').dropdown('toggle');
+    }
 
-  logOut() {
-    this.authService.logOut();
-    location.reload();
-  }
+    logOut() {
+        this.authService.logOut();
+        location.reload();
+    }
 
-  //#endregion
+    //#endregion
 
 }

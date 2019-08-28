@@ -8,65 +8,65 @@ import { LoginModel } from '@app/core/models/data/login-model';
 
 
 @Component({
-  selector: 'user-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'user-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  //#region Inputs, Outputs
+    //#region Inputs, Outputs
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  loginModel: LoginModel;
+    loginModel: LoginModel;
 
-  isRememberCheckboxOption: IcheckOption;
+    isRememberCheckboxOption: IcheckOption;
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor(private route: ActivatedRoute, private router: Router,
-              private authService: AuthenticationService, private alertService: AlertService) { }
+    constructor(private route: ActivatedRoute, private router: Router,
+        private authService: AuthenticationService, private alertService: AlertService) { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() {
+    ngOnInit() {
 
-    this.isRememberCheckboxOption = {
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_minimal-blue'
-    };
+        this.isRememberCheckboxOption = {
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_minimal-blue'
+        };
 
-    this.resetForm();
-  }
-
-  //#endregion
-
-  //#region Funtions
-
-  resetForm() {
-    this.loginModel = new LoginModel();
-  }
-
-  onLogInFormSubmit(logInForm: NgForm) {
-    if (logInForm.valid) {
-      this.authService.logIn(this.loginModel).subscribe(
-        resp => {
-          const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-          this.router.navigate([returnUrl]);
-        },
-        error => {
-          this.alertService.error(error);
-        }
-      );
+        this.resetForm();
     }
-  }
 
-  //#endregion
+    //#endregion
+
+    //#region Funtions
+
+    resetForm() {
+        this.loginModel = new LoginModel();
+    }
+
+    onLogInFormSubmit(logInForm: NgForm) {
+        if (logInForm.valid) {
+            this.authService.logIn(this.loginModel).subscribe(
+                resp => {
+                    const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+                    this.router.navigate([returnUrl]);
+                },
+                error => {
+                    this.alertService.error(error);
+                }
+            );
+        }
+    }
+
+    //#endregion
 
 }

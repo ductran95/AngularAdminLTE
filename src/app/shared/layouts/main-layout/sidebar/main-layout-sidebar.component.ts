@@ -7,50 +7,50 @@ import { SidebarItemModel } from '@app/core/models/data/sidebar-item-model';
 declare var $;
 
 @Component({
-  selector: 'main-layout-sidebar',
-  templateUrl: './main-layout-sidebar.component.html',
-  styleUrls: ['./main-layout-sidebar.component.scss']
+    selector: 'main-layout-sidebar',
+    templateUrl: './main-layout-sidebar.component.html',
+    styleUrls: ['./main-layout-sidebar.component.scss']
 })
 export class MainLayoutSidebarComponent implements OnInit {
 
-  //#region Inputs
+    //#region Inputs
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  sidebarMenu: SidebarItemModel[];
-  user: UserModel;
+    sidebarMenu: SidebarItemModel[];
+    user: UserModel;
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor(private layoutService: LayoutService, private authService: AuthenticationService) { }
+    constructor(private layoutService: LayoutService, private authService: AuthenticationService) { }
 
-  //#endregion
+    //#endregion
 
-  //#region OnInit
+    //#region OnInit
 
-  ngOnInit() {
-    this.layoutService.getSidebarMenu().subscribe(
-      resp => {
-        this.sidebarMenu = resp;
-      }
-    );
+    ngOnInit() {
+        this.layoutService.getSidebarMenu().subscribe(
+            resp => {
+                this.sidebarMenu = resp;
+            }
+        );
 
-    this.user = this.authService.user;
+        this.user = this.authService.user;
 
-    $(document).ready(() => {
-      const trees: any = $('[data-widget="tree"]');
-      trees.tree();
-    });
-  }
+        $(document).ready(() => {
+            const trees: any = $('[data-widget="tree"]');
+            trees.tree();
+        });
+    }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  //#endregion
+    //#endregion
 
 }

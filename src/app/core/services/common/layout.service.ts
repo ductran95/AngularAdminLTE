@@ -5,28 +5,28 @@ import { HttpClient } from '@angular/common/http';
 import { SidebarItemModel } from '@app/core/models/data/sidebar-item-model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LayoutService {
 
-  //#region Properties
+    //#region Properties
 
-  private baseUrl = environment.baseUrl;
-  private apiUrl = apiUrls.layout;
+    private baseUrl = environment.baseUrl;
+    private apiUrl = apiUrls.layout;
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  getSidebarMenu() {
-    return this.http.get<SidebarItemModel[]>(this.baseUrl + this.apiUrl.getSidebarMenu);
-  }
+    getSidebarMenu() {
+        return this.http.get<SidebarItemModel[]>(this.baseUrl + this.apiUrl.getSidebarMenu);
+    }
 
-  //#endregion
+    //#endregion
 }

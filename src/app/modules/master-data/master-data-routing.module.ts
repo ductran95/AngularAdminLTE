@@ -6,18 +6,18 @@ import { MainLayoutComponent } from '@app/shared/layouts/main-layout/main-layout
 
 
 const routes: Routes = [
-  {
-    path: 'city',
-    component: CityComponent
-  },
-  {
-    path: 'county',
-    component: CountyComponent
-  }
+    {
+        path: 'city',
+        component: CityComponent
+    },
+    {
+        path: 'county',
+        component: CountyComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class MasterDataRoutingModule { }

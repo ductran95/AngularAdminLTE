@@ -11,200 +11,200 @@ import { CountyModel } from '@app/core/models/data/county-model';
 import { CityModel } from '@app/core/models/data/city-model';
 
 @Component({
-  selector: 'master-data-county',
-  templateUrl: './county.component.html',
-  styleUrls: ['./county.component.scss']
+    selector: 'master-data-county',
+    templateUrl: './county.component.html',
+    styleUrls: ['./county.component.scss']
 })
 export class CountyComponent implements OnInit {
 
-  //#region Inputs
+    //#region Inputs
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  dataTableCountyOptions: DataTableOption;
+    dataTableCountyOptions: DataTableOption;
 
-  popupAddEditCountyOptions: PopupOption;
+    popupAddEditCountyOptions: PopupOption;
 
-  popupDeleteCountyOptions: PopupOption;
+    popupDeleteCountyOptions: PopupOption;
 
-  @ViewChild('popupAddEditCounty', { static: false }) popupAddEditCounty: PopupComponent;
+    @ViewChild('popupAddEditCounty', { static: false }) popupAddEditCounty: PopupComponent;
 
-  @ViewChild('popupDeleteCounty', { static: false }) popupDeleteCounty: PopupComponent;
+    @ViewChild('popupDeleteCounty', { static: false }) popupDeleteCounty: PopupComponent;
 
-  @ViewChild('dataTableCounty', { static: false }) dataTableCounty: DataTableComponent;
+    @ViewChild('dataTableCounty', { static: false }) dataTableCounty: DataTableComponent;
 
-  model: CountyModel;
+    model: CountyModel;
 
-  dropDownList: {
-    cityList: CityModel[]
-  };
-
-  searchParams: {
-    cityId: number,
-    name: string
-  };
-
-  //#endregion
-
-  //#region Constructors
-
-  constructor(private cityService: CityService, private alertService: AlertService) { }
-
-  //#endregion
-
-  //#region OnInit
-
-  ngOnInit() {
-
-    this.dropDownList = {
-      cityList: [{
-        id: 1,
-        name: 'Ha Noi'
-      }]
+    dropDownList: {
+        cityList: CityModel[]
     };
 
-    this.searchParams = {
-      cityId: null,
-      name: ''
+    searchParams: {
+        cityId: number,
+        name: string
     };
 
-    this.model = new CountyModel();
+    //#endregion
 
-    this.cityService.getAll().subscribe(
-      resp => {
-        this.dropDownList.cityList = resp;
-      },
-      error => this.alertService.error(error)
-    );
+    //#region Constructors
 
-    this.dataTableCountyOptions = {
-      data: [{
-        id: 1,
-        name: 'CG',
-        city: {
-          id: 1,
-          name: 'HN'
-        }
-      }],
-      columns: [
-        { title: 'Id', data: 'id' },
-        { title: 'Name', data: 'name' },
-        { title: 'City', data: 'city.name' },
-      ],
-      columnDefs: [],
-      paging: true,
-      lengthChange: false,
-      searching: false,
-      ordering: true,
-      info: true,
-      autoWidth: false,
-      actions: ['Add', 'Edit', 'Delete']
-    };
+    constructor(private cityService: CityService, private alertService: AlertService) { }
 
-    this.popupAddEditCountyOptions = {
-      type: '',
-      title: 'Add County',
-      okText: 'Add',
-      cancelText: 'Cancel'
-    };
+    //#endregion
 
-    this.popupDeleteCountyOptions = {
-      type: '',
-      title: 'Delete County',
-      okText: 'Yes',
-      cancelText: 'Cancel'
-    };
+    //#region OnInit
 
-    this.resetForm();
-  }
+    ngOnInit() {
 
-  //#endregion
+        this.dropDownList = {
+            cityList: [{
+                id: 1,
+                name: 'Ha Noi'
+            }]
+        };
 
-  //#region Funtions
+        this.searchParams = {
+            cityId: null,
+            name: ''
+        };
 
-  showPopupAdd() {
-    this.resetForm();
-    this.popupAddEditCountyOptions.okText = 'Add';
-    this.popupAddEditCountyOptions.title = 'Add County';
-    this.popupAddEditCounty.show();
-  }
+        this.model = new CountyModel();
 
-  showPopupEdit(event) {
-    const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
-    this.model = _.cloneDeep(data);
-    this.popupAddEditCountyOptions.okText = 'Update';
-    this.popupAddEditCountyOptions.title = 'Update County';
-    this.popupAddEditCounty.show();
-  }
+        this.cityService.getAll().subscribe(
+            resp => {
+                this.dropDownList.cityList = resp;
+            },
+            error => this.alertService.error(error)
+        );
 
-  showPopupDelete(event) {
-    const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
-    this.model = _.cloneDeep(data);
-    this.popupDeleteCounty.show();
-  }
+        this.dataTableCountyOptions = {
+            data: [{
+                id: 1,
+                name: 'CG',
+                city: {
+                    id: 1,
+                    name: 'HN'
+                }
+            }],
+            columns: [
+                { title: 'Id', data: 'id' },
+                { title: 'Name', data: 'name' },
+                { title: 'City', data: 'city.name' },
+            ],
+            columnDefs: [],
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            actions: ['Add', 'Edit', 'Delete']
+        };
 
-  refreshDataTable() {
-    this.dataTableCounty.refreshData();
-  }
+        this.popupAddEditCountyOptions = {
+            type: '',
+            title: 'Add County',
+            okText: 'Add',
+            cancelText: 'Cancel'
+        };
 
-  resetForm() {
-    this.model = new CountyModel();
-  }
+        this.popupDeleteCountyOptions = {
+            type: '',
+            title: 'Delete County',
+            okText: 'Yes',
+            cancelText: 'Cancel'
+        };
 
-  onCountyFormSubmit(addCountyForm: NgForm) {
-    if (addCountyForm.valid) {
-      // Update
-      if (this.model.id) {
-        const data = _.find(this.dataTableCountyOptions.data, { id: this.model.id });
-        _.assign(data, this.model);
-        this.alertService.success('Update county success');
         this.resetForm();
-        this.popupAddEditCounty.hide();
-        this.refreshDataTable();
-      } else {
-        const maxItem = _.maxBy(this.dataTableCountyOptions.data, 'id');
-        let id = 1;
-        if (maxItem) {
-          id = maxItem.id + 1;
-        }
-        this.model.id = id;
-        this.dataTableCountyOptions.data.push(this.model);
-        this.alertService.success('Add county success');
+    }
+
+    //#endregion
+
+    //#region Funtions
+
+    showPopupAdd() {
         this.resetForm();
-        this.popupAddEditCounty.hide();
-        this.refreshDataTable();
-      }
+        this.popupAddEditCountyOptions.okText = 'Add';
+        this.popupAddEditCountyOptions.title = 'Add County';
+        this.popupAddEditCounty.show();
     }
-  }
 
-  onDeleteCountySubmit(event) {
-    if (this.model.id) {
-      _.remove(this.dataTableCountyOptions.data, { id: this.model.id });
-      this.alertService.success('Delete county success');
-      this.resetForm();
-      this.popupDeleteCounty.hide();
-      this.refreshDataTable();
+    showPopupEdit(event) {
+        const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
+        this.model = _.cloneDeep(data);
+        this.popupAddEditCountyOptions.okText = 'Update';
+        this.popupAddEditCountyOptions.title = 'Update County';
+        this.popupAddEditCounty.show();
     }
-  }
 
-  onSearchFormSubmit(searchCountyForm: NgForm) {
-    if (searchCountyForm.valid) {
-      const city = _.find<CityModel>(this.dropDownList.cityList, { id: this.searchParams.cityId });
-      const cityName = city ? city.name : '';
-      this.dataTableCounty.search([
-        {
-          columnIndex: 1,
-          searchKey: this.searchParams.name
-        },
-        {
-          columnIndex: 2,
-          searchKey: cityName
-        },
-      ]);
+    showPopupDelete(event) {
+        const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
+        this.model = _.cloneDeep(data);
+        this.popupDeleteCounty.show();
     }
-  }
-  //#endregion
+
+    refreshDataTable() {
+        this.dataTableCounty.refreshData();
+    }
+
+    resetForm() {
+        this.model = new CountyModel();
+    }
+
+    onCountyFormSubmit(addCountyForm: NgForm) {
+        if (addCountyForm.valid) {
+            // Update
+            if (this.model.id) {
+                const data = _.find(this.dataTableCountyOptions.data, { id: this.model.id });
+                _.assign(data, this.model);
+                this.alertService.success('Update county success');
+                this.resetForm();
+                this.popupAddEditCounty.hide();
+                this.refreshDataTable();
+            } else {
+                const maxItem = _.maxBy(this.dataTableCountyOptions.data, 'id');
+                let id = 1;
+                if (maxItem) {
+                    id = maxItem.id + 1;
+                }
+                this.model.id = id;
+                this.dataTableCountyOptions.data.push(this.model);
+                this.alertService.success('Add county success');
+                this.resetForm();
+                this.popupAddEditCounty.hide();
+                this.refreshDataTable();
+            }
+        }
+    }
+
+    onDeleteCountySubmit(event) {
+        if (this.model.id) {
+            _.remove(this.dataTableCountyOptions.data, { id: this.model.id });
+            this.alertService.success('Delete county success');
+            this.resetForm();
+            this.popupDeleteCounty.hide();
+            this.refreshDataTable();
+        }
+    }
+
+    onSearchFormSubmit(searchCountyForm: NgForm) {
+        if (searchCountyForm.valid) {
+            const city = _.find<CityModel>(this.dropDownList.cityList, { id: this.searchParams.cityId });
+            const cityName = city ? city.name : '';
+            this.dataTableCounty.search([
+                {
+                    columnIndex: 1,
+                    searchKey: this.searchParams.name
+                },
+                {
+                    columnIndex: 2,
+                    searchKey: cityName
+                },
+            ]);
+        }
+    }
+    //#endregion
 
 }

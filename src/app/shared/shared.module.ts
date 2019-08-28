@@ -13,31 +13,31 @@ import { IcheckDirective } from './directives/icheck.directive';
 
 
 @NgModule({
-  declarations: [
-    DataTableComponent,
-    PopupComponent,
-    MainLayoutComponent,
-    MainLayoutHeaderComponent,
-    MainLayoutFooterComponent,
-    MainLayoutPageHeaderComponent,
-    MainLayoutSidebarComponent,
-    MainLayoutSettingComponent,
-    IcheckDirective
-  ],
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
-  exports: [
-    MainLayoutComponent,
-	MainLayoutHeaderComponent,
-    MainLayoutFooterComponent,
-    MainLayoutPageHeaderComponent,
-    MainLayoutSidebarComponent,
-    MainLayoutSettingComponent,
-    DataTableComponent,
-    PopupComponent,
-    IcheckDirective
-  ]
+    declarations: [
+        DataTableComponent,
+        PopupComponent,
+        MainLayoutComponent,
+        MainLayoutHeaderComponent,
+        MainLayoutFooterComponent,
+        MainLayoutPageHeaderComponent,
+        MainLayoutSidebarComponent,
+        MainLayoutSettingComponent,
+        IcheckDirective
+    ],
+    imports: [
+        CommonModule,
+        RouterModule
+    ],
+    exports: [
+        MainLayoutComponent,
+        MainLayoutHeaderComponent,
+        MainLayoutFooterComponent,
+        MainLayoutPageHeaderComponent,
+        MainLayoutSidebarComponent,
+        MainLayoutSettingComponent,
+        DataTableComponent,
+        PopupComponent,
+        IcheckDirective
+    ]
 })
 export class SharedModule { }

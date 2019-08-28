@@ -7,12 +7,12 @@ import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [LoginComponent],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    FormsModule,
-    SharedModule
-  ]
+    declarations: [LoginComponent],
+    imports: [
+        CommonModule,
+        UserRoutingModule,
+        FormsModule,
+        SharedModule
+    ]
 })
 export class UserModule { }

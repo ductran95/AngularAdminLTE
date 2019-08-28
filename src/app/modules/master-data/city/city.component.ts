@@ -11,185 +11,185 @@ import { AlertService } from '@app/core/services/common/alert.service';
 
 
 @Component({
-  selector: 'master-data-city',
-  templateUrl: './city.component.html',
-  styleUrls: ['./city.component.scss']
+    selector: 'master-data-city',
+    templateUrl: './city.component.html',
+    styleUrls: ['./city.component.scss']
 })
 export class CityComponent implements OnInit {
 
-  //#region Inputs
+    //#region Inputs
 
-  //#endregion
+    //#endregion
 
-  //#region Properties
+    //#region Properties
 
-  dataTableCityOptions: DataTableOption;
+    dataTableCityOptions: DataTableOption;
 
-  popupAddEditCityOptions: PopupOption;
+    popupAddEditCityOptions: PopupOption;
 
-  popupDeleteCityOptions: PopupOption;
+    popupDeleteCityOptions: PopupOption;
 
-  @ViewChild('popupAddEditCity', { static: false }) popupAddEditCity: PopupComponent;
+    @ViewChild('popupAddEditCity', { static: false }) popupAddEditCity: PopupComponent;
 
-  @ViewChild('popupDeleteCity', { static: false }) popupDeleteCity: PopupComponent;
+    @ViewChild('popupDeleteCity', { static: false }) popupDeleteCity: PopupComponent;
 
-  @ViewChild('dataTableCity', { static: false }) dataTableCity: DataTableComponent;
+    @ViewChild('dataTableCity', { static: false }) dataTableCity: DataTableComponent;
 
-  model: CityModel;
+    model: CityModel;
 
-  searchParams: {
-    name: string
-  };
-
-  //#endregion
-
-  //#region Constructors
-
-  constructor(private cityService: CityService, private alertService: AlertService) { }
-
-  //#endregion
-
-  //#region OnInit
-
-  ngOnInit() {
-
-    this.searchParams = {
-      name: ''
+    searchParams: {
+        name: string
     };
 
-    this.model = new CityModel();
+    //#endregion
 
-    this.dataTableCityOptions = {
-      data: [],
-      ajax: (dataTablesParameters: any, callback) => {
-        this.cityService.getAll().subscribe(
-          resp => {
-            callback({
-              recordsTotal: resp.length,
-              recordsFiltered: resp.length,
-              data: resp
-            });
-          },
-          error => this.alertService.error(error)
-        );
-      },
-      columns: [
-        { title: 'Id', data: 'id' },
-        { title: 'Name', data: 'name' },
-      ],
-      columnDefs: [],
-      paging: true,
-      lengthChange: false,
-      searching: false,
-      ordering: true,
-      info: true,
-      autoWidth: false,
-      actions: ['Add', 'Edit', 'Delete']
-    };
+    //#region Constructors
 
-    this.popupAddEditCityOptions = {
-      type: '',
-      title: 'Add City',
-      okText: 'Add',
-      cancelText: 'Cancel'
-    };
+    constructor(private cityService: CityService, private alertService: AlertService) { }
 
-    this.popupDeleteCityOptions = {
-      type: '',
-      title: 'Delete City',
-      okText: 'Yes',
-      cancelText: 'Cancel'
-    };
+    //#endregion
 
-  }
+    //#region OnInit
 
-  //#endregion
+    ngOnInit() {
 
-  //#region Funtions
+        this.searchParams = {
+            name: ''
+        };
 
-  showPopupAdd() {
-    this.resetForm();
-    this.popupAddEditCityOptions.okText = 'Add';
-    this.popupAddEditCityOptions.title = 'Add City';
-    this.popupAddEditCity.show();
-  }
+        this.model = new CityModel();
 
-  showPopupEdit(event) {
-    const data = this.dataTableCity.getRowData<CityModel>(event.currentTarget);
-    this.cityService.getById(data.id).subscribe(
-      resp => {
-        this.model = resp;
-        this.popupAddEditCityOptions.okText = 'Update';
-        this.popupAddEditCityOptions.title = 'Update City';
+        this.dataTableCityOptions = {
+            data: [],
+            ajax: (dataTablesParameters: any, callback) => {
+                this.cityService.getAll().subscribe(
+                    resp => {
+                        callback({
+                            recordsTotal: resp.length,
+                            recordsFiltered: resp.length,
+                            data: resp
+                        });
+                    },
+                    error => this.alertService.error(error)
+                );
+            },
+            columns: [
+                { title: 'Id', data: 'id' },
+                { title: 'Name', data: 'name' },
+            ],
+            columnDefs: [],
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            actions: ['Add', 'Edit', 'Delete']
+        };
+
+        this.popupAddEditCityOptions = {
+            type: '',
+            title: 'Add City',
+            okText: 'Add',
+            cancelText: 'Cancel'
+        };
+
+        this.popupDeleteCityOptions = {
+            type: '',
+            title: 'Delete City',
+            okText: 'Yes',
+            cancelText: 'Cancel'
+        };
+
+    }
+
+    //#endregion
+
+    //#region Funtions
+
+    showPopupAdd() {
+        this.resetForm();
+        this.popupAddEditCityOptions.okText = 'Add';
+        this.popupAddEditCityOptions.title = 'Add City';
         this.popupAddEditCity.show();
-      },
-      error => this.alertService.error(error)
-    );
-  }
-
-  showPopupDelete(event) {
-    const data = this.dataTableCity.getRowData<CityModel>(event.currentTarget);
-    this.model = _.cloneDeep(data);
-    this.popupDeleteCity.show();
-  }
-
-  refreshDataTable() {
-    this.dataTableCity.refreshData();
-  }
-
-  resetForm() {
-    this.model = new CityModel();
-  }
-
-  onCityFormSubmit(addCityForm: NgForm) {
-    if (addCityForm.valid) {
-      // Update
-      if (this.model.id) {
-        this.cityService.update(this.model).subscribe(
-          resp => {
-            this.resetForm();
-            this.popupAddEditCity.hide();
-            this.refreshDataTable();
-          },
-          error => this.alertService.error(error)
-        );
-      } else {
-        this.cityService.add(this.model).subscribe(
-          resp => {
-            this.resetForm();
-            this.popupAddEditCity.hide();
-            this.refreshDataTable();
-          },
-          error => this.alertService.error(error)
-        );
-      }
     }
-  }
 
-  onDeleteCitySubmit(event) {
-    if (this.model.id) {
-      this.cityService.delete(this.model.id).subscribe(
-        resp => {
-          this.resetForm();
-          this.popupDeleteCity.hide();
-          this.refreshDataTable();
-        },
-        error => this.alertService.error(error)
-      );
+    showPopupEdit(event) {
+        const data = this.dataTableCity.getRowData<CityModel>(event.currentTarget);
+        this.cityService.getById(data.id).subscribe(
+            resp => {
+                this.model = resp;
+                this.popupAddEditCityOptions.okText = 'Update';
+                this.popupAddEditCityOptions.title = 'Update City';
+                this.popupAddEditCity.show();
+            },
+            error => this.alertService.error(error)
+        );
     }
-  }
 
-  onSearchFormSubmit(searchCityForm: NgForm) {
-    if (searchCityForm.valid) {
-      this.dataTableCity.search([
-        {
-          columnIndex: 1,
-          searchKey: this.searchParams.name
+    showPopupDelete(event) {
+        const data = this.dataTableCity.getRowData<CityModel>(event.currentTarget);
+        this.model = _.cloneDeep(data);
+        this.popupDeleteCity.show();
+    }
+
+    refreshDataTable() {
+        this.dataTableCity.refreshData();
+    }
+
+    resetForm() {
+        this.model = new CityModel();
+    }
+
+    onCityFormSubmit(addCityForm: NgForm) {
+        if (addCityForm.valid) {
+            // Update
+            if (this.model.id) {
+                this.cityService.update(this.model).subscribe(
+                    resp => {
+                        this.resetForm();
+                        this.popupAddEditCity.hide();
+                        this.refreshDataTable();
+                    },
+                    error => this.alertService.error(error)
+                );
+            } else {
+                this.cityService.add(this.model).subscribe(
+                    resp => {
+                        this.resetForm();
+                        this.popupAddEditCity.hide();
+                        this.refreshDataTable();
+                    },
+                    error => this.alertService.error(error)
+                );
+            }
         }
-      ]);
     }
-  }
 
-  //#endregion
+    onDeleteCitySubmit(event) {
+        if (this.model.id) {
+            this.cityService.delete(this.model.id).subscribe(
+                resp => {
+                    this.resetForm();
+                    this.popupDeleteCity.hide();
+                    this.refreshDataTable();
+                },
+                error => this.alertService.error(error)
+            );
+        }
+    }
+
+    onSearchFormSubmit(searchCityForm: NgForm) {
+        if (searchCityForm.valid) {
+            this.dataTableCity.search([
+                {
+                    columnIndex: 1,
+                    searchKey: this.searchParams.name
+                }
+            ]);
+        }
+    }
+
+    //#endregion
 
 }

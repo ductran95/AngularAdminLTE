@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders
+    HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders
 } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { apiUrls } from '@app/core/constants/apiUrls';
@@ -8,34 +8,34 @@ import { AuthenticationService } from '@app/core/services/authentication/authent
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  //#region Properties
+    //#region Properties
 
-  //#endregion
+    //#endregion
 
-  //#region Constructors
+    //#region Constructors
 
-  constructor(private authService: AuthenticationService) { }
+    constructor(private authService: AuthenticationService) { }
 
-  //#endregion
+    //#endregion
 
-  //#region Funtions
+    //#region Funtions
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    req = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.authService.jwt
-      }
-    });
+    intercept(req: HttpRequest<any>, next: HttpHandler) {
+        req = req.clone({
+            setHeaders: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + this.authService.jwt
+            }
+        });
 
-    return next.handle(req);
-  }
+        return next.handle(req);
+    }
 
-  //#endregion
+    //#endregion
 }
