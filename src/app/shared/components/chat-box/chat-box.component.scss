@@ -1,0 +1,34 @@
+.direct-chat-text{
+  width: 60%;
+}
+
+.direct-chat-msg.right{
+  .direct-chat-text{
+    margin-left: 34%;
+  }
+  .direct-chat-timestamp{
+    margin-right: 15px;
+  }
+}
+
+.direct-chat-msg{
+  .direct-chat-timestamp.pull-left{
+    margin-left: 15px;
+  }
+}
+
+.cdk-overlay-container{
+  z-index: 1001;
+}
+
+.clickable{
+  cursor: pointer;
+}
+
+.direct-chat-messages{
+  height: 500px;
+}
+
+.direct-chat-msg.right{
+  margin-right: 10px;
+}

@@ -1,0 +1,51 @@
+<!-- DIRECT CHAT PRIMARY -->
+<div class="box box-primary direct-chat direct-chat-primary">
+    <!-- /.box-header -->
+    <div class="box-body">
+        <virtual-scroller #scroll [items]="messageList" [enableUnequalChildrenSizes]="true" class="direct-chat-messages">
+            <div *ngFor="let message of scroll.viewPortItems" class="direct-chat-msg" [ngClass]="{'right': message.user.type == 'me'}">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name"
+                        [ngClass]="{'pull-left': message.user.type == 'you', 'pull-right': message.user.type == 'me'}">{{message.user.name}}</span>
+                </div>
+                <!-- /.direct-chat-info -->
+                <img class="direct-chat-img" src="assets/lib/AdminLTE/img/user3-128x128.jpg" alt="Message User Image">
+                <!-- /.direct-chat-img -->
+                <div class="direct-chat-text clickable" [contextMenu]="basicMenu" [contextMenuSubject]="message" *ngIf="message.user.type == 'me' && (hasEdit || hasDelete)">
+                    {{message.content}}
+                </div>
+                <div class="direct-chat-text" *ngIf="message.user.type == 'you' || (!hasEdit && !hasDelete)">
+                    {{message.content}}
+                </div>
+                <!-- /.direct-chat-text -->
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-timestamp" [ngClass]="{'pull-left': message.user.type == 'you', 'pull-right': message.user.type == 'me'}">{{message.timeSend | date: appConstant.dateFormat}}</span>
+                </div>
+            </div>
+        </virtual-scroller>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <form (ngSubmit)="onChatFormSubmit(chatForm)" #chatForm="ngForm">
+            <div class="input-group">
+                <input type="text" placeholder="Type Message ..." class="form-control" id="chatFormMessage" name="chatFormMessage"
+                    [(ngModel)]="messageText" #chatFormMessage="ngModel" required>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <!-- /.box-footer-->
+    <context-menu (open)="setZIndex()">
+        <ng-template contextMenuItem (execute)="showUpdateChat($event.item)" *ngIf="hasEdit">
+            Edit
+        </ng-template>
+        <ng-template contextMenuItem divider="true" *ngIf="hasEdit || hasDelete"></ng-template>
+        <ng-template contextMenuItem (execute)="onDeleteChat($event.item)" *ngIf="hasDelete">
+            Delete
+        </ng-template>
+    </context-menu>
+</div>
+<!--/.direct-chat -->
+<!-- /.col -->

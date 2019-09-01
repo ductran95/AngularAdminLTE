@@ -10,6 +10,10 @@ import { MainLayoutPageHeaderComponent } from '@app/shared/layouts/main-layout/p
 import { MainLayoutSidebarComponent } from '@app/shared/layouts/main-layout/sidebar/main-layout-sidebar.component';
 import { MainLayoutSettingComponent } from '@app/shared/layouts/main-layout/setting/main-layout-setting.component';
 import { IcheckDirective } from './directives/icheck.directive';
+import {VirtualScrollerModule} from 'ngx-virtual-scroller';
+import {ContextMenuModule} from 'ngx-contextmenu';
+import {ChatBoxComponent} from '@app/shared/components/chat-box/chat-box.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -22,11 +26,15 @@ import { IcheckDirective } from './directives/icheck.directive';
         MainLayoutPageHeaderComponent,
         MainLayoutSidebarComponent,
         MainLayoutSettingComponent,
-        IcheckDirective
+        IcheckDirective,
+        ChatBoxComponent
     ],
     imports: [
         CommonModule,
-        RouterModule
+        RouterModule,
+        FormsModule,
+        ContextMenuModule,
+        VirtualScrollerModule
     ],
     exports: [
         MainLayoutComponent,
@@ -37,7 +45,8 @@ import { IcheckDirective } from './directives/icheck.directive';
         MainLayoutSettingComponent,
         DataTableComponent,
         PopupComponent,
-        IcheckDirective
+        IcheckDirective,
+        ChatBoxComponent
     ]
 })
 export class SharedModule { }

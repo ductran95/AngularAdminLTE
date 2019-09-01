@@ -20,6 +20,7 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
     @Output() addClick: EventEmitter<any> = new EventEmitter();
     @Output() editClick: EventEmitter<any> = new EventEmitter();
     @Output() deleteClick: EventEmitter<any> = new EventEmitter();
+    @Output() viewClick: EventEmitter<any> = new EventEmitter();
 
     //#endregion
 
@@ -30,10 +31,12 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
 
     private _hasAttachedListenerEdit = false;
     private _hasAttachedListenerDelete = false;
+    private _hasAttachedListenerView = false;
 
     protected _hasAdd = false;
     private _hasEdit = false;
     private _hasDelete = false;
+    private _hasView = false;
 
     //#endregion
 
@@ -78,6 +81,15 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
                 });
             }
 
+            if (this._hasView) {
+                this.options.createdRow = (row, data) => {
+                    $(row).find('td').addClass('table-row');
+                    if (_.find(this.options.columns, { title: 'Actions' })) {
+                        $(row).find('td:last-child').removeClass('table-row');
+                    }
+                };
+            }
+
             this.options.dom = 'lrtip';
 
             this.options.drawCallback = () => {
@@ -116,6 +128,19 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
                 this._hasAttachedListenerEdit = true;
             }
         }
+
+        if (!this._hasAttachedListenerView) {
+            const rows = this.tableElement.nativeElement.querySelectorAll('.table-row');
+            if (rows.length > 0) {
+                // tslint:disable-next-line: prefer-for-of
+                for (let i = 0; i < rows.length; i++) {
+                    this.renderer.listen(rows[i], 'click', (evt) => {
+                        this.viewClick.emit(evt);
+                    });
+                }
+                this._hasAttachedListenerView = true;
+            }
+        }
     }
 
     //#endregion
@@ -128,6 +153,9 @@ export class DataTableComponent implements OnInit, AfterViewChecked {
         }
         if (this._hasDelete) {
             this._hasAttachedListenerDelete = false;
+        }
+        if (this._hasView) {
+            this._hasAttachedListenerView = false;
         }
     }
 

@@ -8,6 +8,7 @@ import { CoreModule } from '@app/core/core.module';
 import * as $ from 'jquery';
 import { HomeModule } from './modules/home/home.module';
 import { SharedModule } from '@app/shared/shared.module';
+import {ContextMenuModule} from 'ngx-contextmenu';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { SharedModule } from '@app/shared/shared.module';
         MasterDataModule,
         UserModule,
         CoreModule.forRoot(),
+        ContextMenuModule.forRoot(),
         SharedModule,
         HomeModule
     ],

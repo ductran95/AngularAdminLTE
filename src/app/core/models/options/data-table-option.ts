@@ -1,7 +1,7 @@
 export class DataTableOption implements DataTables.Settings {
     data?: any[];
-    columns?: any[];
-    columnDefs?: any[];
+    columns?: DataTables.ColumnSettings[];
+    columnDefs?: DataTables.ColumnDefsSettings[];
     paging?: boolean;
     lengthChange?: boolean;
     searching?: boolean;
@@ -10,6 +10,7 @@ export class DataTableOption implements DataTables.Settings {
     autoWidth?: boolean;
     ajax?: any;
     drawCallback?: any;
-    actions?: string[];
+    actions?: ('Add' | 'Edit' | 'Delete' | 'View')[];
     dom?: string;
+    createdRow?: any;
 }
