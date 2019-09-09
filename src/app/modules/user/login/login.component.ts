@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { IcheckOption } from '@app/core/models/options/icheck-option';
 import { AlertService } from '@app/core/services/common/alert.service';
-import { LoginModel } from '@app/core/models/data/login-model';
+import { LoginModel } from '@app/core/stores/auth/login.model';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     //#region Constructors
 
     constructor(private route: ActivatedRoute, private router: Router,
-        private authService: AuthenticationService, private alertService: AlertService) { }
+                private authService: AuthApiService, private alertService: AlertService) { }
 
     //#endregion
 

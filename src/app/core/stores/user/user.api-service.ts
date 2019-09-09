@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { apiUrls } from '@app/core/constants/apiUrls';
-import { UserModel } from '@app/core/models/data/user-model';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { UserResponse } from '@app/core/models/api-data/user-response';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { UserRequest } from '@app/core/models/api-data/user-request';
+import {UserListResponse, UserRequest, UserResponse} from '@app/core/stores/user/user.api-model';
+import {createUserFromResponse, User} from '@app/core/stores/user/user.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UserService {
+export class UserApiService {
 
     //#region Properties
 
@@ -29,12 +28,12 @@ export class UserService {
 
     //#region Funtions
 
-    getAll(): Observable<UserModel[]> {
-        return this.http.get<UserResponse>(this.baseUrl + this.apiUrl.getAll).pipe(
+    getAll(): Observable<User[]> {
+        return this.http.get<UserListResponse>(this.baseUrl + this.apiUrl.getAll).pipe(
             map(
                 resp => {
                     if (resp.statusCode == 200) {
-                        return _.map(resp.data, item => new UserModel(item));
+                        return _.map(resp.data, item => createUserFromResponse(item));
                     }
                     throw Error(resp.message);
                 },
@@ -43,13 +42,13 @@ export class UserService {
         );
     }
 
-    getById(id: number): Observable<UserModel> {
+    getById(id: number): Observable<User> {
         const data = new HttpParams().append('Id', id.toString());
         return this.http.get<UserResponse>(this.baseUrl + this.apiUrl.getById, { params: data }).pipe(
             map(
                 resp => {
-                    if (resp.statusCode == 200 && resp.data.length > 0) {
-                        return new UserModel(resp[0]);
+                    if (resp.statusCode == 200) {
+                        return createUserFromResponse(resp.data);
                     }
                     throw Error(resp.message);
                 },
@@ -58,7 +57,7 @@ export class UserService {
         );
     }
 
-    add(user: UserModel): Observable<string> {
+    add(user: User): Observable<string> {
         const requestParams = new UserRequest(user);
         return this.http.post<UserResponse>(this.baseUrl + this.apiUrl.add, requestParams).pipe(
             map(
@@ -73,7 +72,7 @@ export class UserService {
         );
     }
 
-    update(user: UserModel) {
+    update(user: User) {
         const requestParams = new UserRequest(user);
         return this.http.put<UserResponse>(this.baseUrl + this.apiUrl.update, requestParams).pipe(
             map(

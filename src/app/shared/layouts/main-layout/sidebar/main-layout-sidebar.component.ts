@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '@app/core/services/common/layout.service';
-import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
 import { UserModel } from '@app/core/models/data/user-model';
 import { SidebarItemModel } from '@app/core/models/data/sidebar-item-model';
 
@@ -26,7 +26,7 @@ export class MainLayoutSidebarComponent implements OnInit {
 
     //#region Constructors
 
-    constructor(private layoutService: LayoutService, private authService: AuthenticationService) { }
+    constructor(private layoutService: LayoutService, private authService: AuthApiService) { }
 
     //#endregion
 

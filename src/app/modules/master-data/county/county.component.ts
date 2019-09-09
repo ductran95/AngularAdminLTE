@@ -149,8 +149,11 @@ export class CountyComponent implements OnInit {
         this.dataTableCounty.refreshData();
     }
 
-    resetForm() {
+    resetForm(addCountyForm?: NgForm) {
         this.model = new CountyModel();
+        if (addCountyForm) {
+            addCountyForm.resetForm();
+        }
     }
 
     onCountyFormSubmit(addCountyForm: NgForm) {

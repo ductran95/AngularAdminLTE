@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
 import { UserModel } from '@app/core/models/data/user-model';
 
 @Component({
@@ -21,7 +21,7 @@ export class MainLayoutHeaderComponent implements OnInit {
 
     //#region Constructors
 
-    constructor(private authService: AuthenticationService) { }
+    constructor(private authService: AuthApiService) { }
 
     //#endregion
 

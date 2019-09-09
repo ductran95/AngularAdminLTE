@@ -4,7 +4,8 @@ import {
 } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { apiUrls } from '@app/core/constants/apiUrls';
-import { AuthenticationService } from '@app/core/services/authentication/authentication.service';
+import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
+import {AuthQuery} from '@app/core/stores/auth/auth.query';
 
 
 @Injectable({
@@ -20,7 +21,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     //#region Constructors
 
-    constructor(private authService: AuthenticationService) { }
+    constructor(private authQuery: AuthQuery) { }
 
     //#endregion
 
@@ -30,7 +31,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         req = req.clone({
             setHeaders: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + this.authService.jwt
+                Authorization: 'Bearer ' + this.authQuery.getJwt()
             }
         });
 
