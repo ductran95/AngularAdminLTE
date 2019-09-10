@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Store, StoreConfig} from '@datorama/akita';
 import {UserModel} from '@app/core/stores/user/user.model';
-import {LocalStorageService} from '@app/core/services/common/local-storage.service';
+import {LocalStorageService} from '@app/core/services/local-storage.service';
 
 // tslint:disable-next-line:no-empty-interface
 export interface AuthState {

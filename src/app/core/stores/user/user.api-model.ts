@@ -1,10 +1,10 @@
-import {BaseResponse} from '@app/core/models/api-data/base-response';
-import {User} from '@app/core/stores/user/user.model';
+import {BaseResponse} from '@app/core/models/base-response';
+import {UserModel} from '@app/core/stores/user/user.model';
 
 //#region Requests
 
 export class UserRequest {
-    constructor(model: User) {
+    constructor(model: UserModel) {
         this.id = model.id as number;
         this.userName = model.userName;
         this.address = model.address;

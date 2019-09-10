@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { apiUrls } from '@app/core/constants/apiUrls';
-import { Observable } from 'rxjs';
 import {LoginRequest, LoginResponse} from '@app/core/stores/auth/login.api-model';
 
 @Injectable({
@@ -29,7 +28,7 @@ export class AuthApiService {
 
     //#region Functions
 
-    login(request: LoginRequest): Observable<LoginResponse> {
+    login(request: LoginRequest) {
         return this.http.post<LoginResponse>(this._baseUrl + this._apiUrl.login, request);
     }
 

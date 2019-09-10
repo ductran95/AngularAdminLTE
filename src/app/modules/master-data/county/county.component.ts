@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataTableOption } from '@app/core/models/options/data-table-option';
-import { PopupOption } from '@app/core/models/options/popup-option';
+import { DataTableOption } from '@app/core/models/data-table-option';
+import { PopupOption } from '@app/core/models/popup-option';
 import { PopupComponent } from '@app/shared/components/popup/popup.component';
 import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
 import * as _ from 'lodash';
-import { CityService } from '@app/core/services/data/city.service';
+import { CityApiService } from '@app/core/stores/city/city.api-service';
 import { NgForm } from '@angular/forms';
-import { AlertService } from '@app/core/services/common/alert.service';
+import { AlertService } from '@app/core/services/alert.service';
 import { CountyModel } from '@app/core/models/data/county-model';
 import { CityModel } from '@app/core/models/data/city-model';
 
@@ -50,7 +50,7 @@ export class CountyComponent implements OnInit {
 
     //#region Constructors
 
-    constructor(private cityService: CityService, private alertService: AlertService) { }
+    constructor(private cityService: CityApiService, private alertService: AlertService) { }
 
     //#endregion
 

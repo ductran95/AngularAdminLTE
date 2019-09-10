@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
-import { IcheckOption } from '@app/core/models/options/icheck-option';
+import { IcheckOption } from '@app/core/models/icheck-option';
 
 import 'icheck';
 

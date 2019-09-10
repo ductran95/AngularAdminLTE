@@ -3,7 +3,7 @@ import { appConstants } from '@app/core/constants/appConstants';
 import { NgForm } from '@angular/forms';
 import { ContextMenuComponent } from 'ngx-contextmenu';
 import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
-import { ChatModel } from '@app/core/models/data/chat-model';
+import { ChatModel } from '@app/core/models/chat-model';
 
 @Component({
     selector: 'common-chat-box',

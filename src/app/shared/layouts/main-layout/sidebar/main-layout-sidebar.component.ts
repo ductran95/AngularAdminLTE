@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '@app/core/services/common/layout.service';
+import { LayoutService } from '@app/core/services/layout.service';
 import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
 import { UserModel } from '@app/core/models/data/user-model';
-import { SidebarItemModel } from '@app/core/models/data/sidebar-item-model';
+import { SidebarItemModel } from '@app/core/models/sidebar-item-model';
 
 declare var $;
 

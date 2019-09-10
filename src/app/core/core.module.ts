@@ -4,11 +4,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthenticationInterceptor } from '@app/core/interceptors/authentication.interceptor';
 import { AuthenticationGuard } from '@app/core/guards/authentication.guard';
 import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
-import { AlertService } from '@app/core/services/common/alert.service';
-import { LocalStorageService } from '@app/core/services/common/local-storage.service';
-import { CityService } from '@app/core/services/data/city.service';
-import { CountyService } from '@app/core/services/data/county.service';
-import { UserService } from '@app/core/services/data/user.service';
+import { AlertService } from '@app/core/services/alert.service';
+import { LocalStorageService } from '@app/core/services/local-storage.service';
+import { CityApiService } from '@app/core/stores/city/city.api-service';
 
 
 @NgModule({
@@ -32,9 +30,7 @@ export class CoreModule {
                 AuthApiService,
                 AlertService,
                 LocalStorageService,
-                CityService,
-                CountyService,
-                UserService
+                CityApiService,
             ]
         };
     }

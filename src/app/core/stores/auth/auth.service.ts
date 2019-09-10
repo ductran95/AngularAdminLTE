@@ -17,11 +17,11 @@ export class AuthService {
         const requestParams = new LoginRequest(loginParam);
         return this.authApiService.login(requestParams).pipe(
             map(
-                (resp: LoginResponse) => {
-                    if (resp.statusCode == 200 && resp.data.token) {
+                response => {
+                    if (response.statusCode == 200 && response.data.token) {
                         const authState = {
-                            jwtSecret: resp.data.token,
-                            user: createUserFromResponse(resp.data.user)
+                            jwtSecret: response.data.token,
+                            user: createUserFromResponse(response.data.user)
                         }
                         this.authStore.login(authState);
                         if (loginParam.remember) {
@@ -30,7 +30,7 @@ export class AuthService {
                         return true;
                     } else {
                         this.authStore.logout();
-                        throw Error(resp.message);
+                        throw Error(response.message);
                     }
                 },
                 error => {

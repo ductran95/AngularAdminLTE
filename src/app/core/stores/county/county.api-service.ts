@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { apiUrls } from '@app/core/constants/apiUrls';
-import { environment } from '@env/environment';
-import {UserListResponse, UserRequest, UserResponse} from '@app/core/stores/user/user.api-model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {apiUrls} from '@app/core/constants/apiUrls';
+import {environment} from '@env/environment';
+import {CountyListResponse, CountyRequest, CountyResponse} from '@app/core/stores/county/county.api-model';
 import {BaseResponse} from '@app/core/models/base-response';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UserApiService {
+export class CountyApiService {
 
     //#region Properties
 
     private baseUrl = environment.baseUrl;
-    private apiUrl = apiUrls.user;
+    private apiUrl = apiUrls.county;
 
     //#endregion
 
@@ -26,19 +26,19 @@ export class UserApiService {
     //#region Functions
 
     getAll() {
-        return this.http.get<UserListResponse>(this.baseUrl + this.apiUrl.getAll);
+        return this.http.get<CountyListResponse>(this.baseUrl + this.apiUrl.getAll);
     }
 
     getById(id: number) {
         const data = new HttpParams().append('Id', id.toString());
-        return this.http.get<UserResponse>(this.baseUrl + this.apiUrl.getById, { params: data });
+        return this.http.get<CountyResponse>(this.baseUrl + this.apiUrl.getById, { params: data });
     }
 
-    add(user: UserRequest) {
+    add(user: CountyRequest) {
         return this.http.post<BaseResponse>(this.baseUrl + this.apiUrl.add, user);
     }
 
-    update(user: UserRequest) {
+    update(user: CountyRequest) {
         return this.http.put<BaseResponse>(this.baseUrl + this.apiUrl.update, user);
     }
 

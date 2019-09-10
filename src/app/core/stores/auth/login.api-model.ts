@@ -1,5 +1,5 @@
 import { LoginModel } from '@app/core/stores/auth/login.model';
-import {BaseResponse} from '@app/core/models/api-data/base-response';
+import {BaseResponse} from '@app/core/models/base-response';
 import {UserResponseData} from '@app/core/stores/user/user.api-model';
 
 //#region Requests

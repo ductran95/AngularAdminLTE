@@ -15,7 +15,15 @@ export interface UserModel {
  * A factory function that creates User
  */
 export function createUser(params: Partial<UserModel>) {
-    return {} as UserModel;
+    return {
+        id: params.id || null,
+        userName: params.userName || null,
+        fullName: params.fullName || null,
+        password: params.password || null,
+        email: params.email || null,
+        address: params.address || null,
+        phoneNumber: params.phoneNumber || null,
+    } as UserModel;
 }
 
 export function createUserFromResponse(params: UserResponseData) {

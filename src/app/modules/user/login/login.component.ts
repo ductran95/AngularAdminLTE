@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { IcheckOption } from '@app/core/models/options/icheck-option';
-import { AlertService } from '@app/core/services/common/alert.service';
+import { IcheckOption } from '@app/core/models/icheck-option';
+import { AlertService } from '@app/core/services/alert.service';
 import { LoginModel } from '@app/core/stores/auth/login.model';
 
 
