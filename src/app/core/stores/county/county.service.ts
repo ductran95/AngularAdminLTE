@@ -6,12 +6,16 @@ import * as _ from 'lodash';
 import {createCounty, createCountyFromResponse, CountyModel} from '@app/core/stores/county/county.model';
 import {CountyRequest} from '@app/core/stores/county/county.api-model';
 import {CountyApiService} from '@app/core/stores/county/county.api-service';
+import {CityService} from '@app/core/stores/city/city.service';
+import {CityQuery} from '@app/core/stores/city/city.query';
 
 @Injectable({providedIn: 'root'})
 export class CountyService {
 
     constructor(private countyStore: CountyStore,
-                private countyApiService: CountyApiService) {
+                private countyApiService: CountyApiService,
+                private cityService: CityService,
+                private cityQuery: CityQuery) {
     }
 
     get() {
@@ -19,7 +23,21 @@ export class CountyService {
             map(
                 response => {
                     if (response.statusCode == 200 && response.data != null) {
-                        const entities = _.map(response.data, item => createCountyFromResponse(item));
+                        let entities = [];
+                        // Get city of county
+                        this.cityService.get().subscribe(
+                            resp => {
+                                const cityData = this.cityQuery.getAll();
+                                entities = _.map(response.data, item => {
+                                    const countyItem = createCountyFromResponse(item);
+                                    countyItem.city = cityData.find(x => x.id == countyItem.city.id);
+                                    return countyItem;
+                                });
+                            },
+                            err => {
+                                entities = _.map(response.data, item => createCountyFromResponse(item));
+                            }
+                        );
                         this.countyStore.set(entities);
                         return response.message || 'Get county success!';
                     } else {

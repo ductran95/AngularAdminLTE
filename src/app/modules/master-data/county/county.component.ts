@@ -1,21 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataTableOption } from '@app/core/models/data-table-option';
-import { PopupOption } from '@app/core/models/popup-option';
-import { PopupComponent } from '@app/shared/components/popup/popup.component';
-import { DataTableComponent } from '@app/shared/components/data-table/data-table.component';
-import * as _ from 'lodash';
-import { CityApiService } from '@app/core/stores/city/city.api-service';
-import { NgForm } from '@angular/forms';
-import { AlertService } from '@app/core/services/alert.service';
-import { CountyModel } from '@app/core/models/data/county-model';
-import { CityModel } from '@app/core/models/data/city-model';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {DataTableOption} from '@app/core/models/data-table-option';
+import {PopupOption} from '@app/core/models/popup-option';
+import {PopupComponent} from '@app/shared/components/popup/popup.component';
+import {DataTableComponent} from '@app/shared/components/data-table/data-table.component';
+import {NgForm} from '@angular/forms';
+import {AlertService} from '@app/core/services/alert.service';
+import {CountyModel, createCounty} from '@app/core/stores/county/county.model';
+import {CityModel} from '@app/core/stores/city/city.model';
+import {Observable, Subscription} from 'rxjs';
+import {CityQuery} from '@app/core/stores/city/city.query';
+import {CountyService} from '@app/core/stores/county/county.service';
+import {CountyQuery} from '@app/core/stores/county/county.query';
+import {map, take} from 'rxjs/operators';
 
 @Component({
     selector: 'master-data-county',
     templateUrl: './county.component.html',
     styleUrls: ['./county.component.scss']
 })
-export class CountyComponent implements OnInit {
+export class CountyComponent implements OnInit, OnDestroy {
 
     //#region Inputs
 
@@ -23,22 +26,26 @@ export class CountyComponent implements OnInit {
 
     //#region Properties
 
+    private subscription: Subscription = new Subscription();
+
     dataTableCountyOptions: DataTableOption;
 
     popupAddEditCountyOptions: PopupOption;
 
     popupDeleteCountyOptions: PopupOption;
 
-    @ViewChild('popupAddEditCounty', { static: false }) popupAddEditCounty: PopupComponent;
+    @ViewChild('popupAddEditCounty', {static: false}) popupAddEditCounty: PopupComponent;
 
-    @ViewChild('popupDeleteCounty', { static: false }) popupDeleteCounty: PopupComponent;
+    @ViewChild('popupDeleteCounty', {static: false}) popupDeleteCounty: PopupComponent;
 
-    @ViewChild('dataTableCounty', { static: false }) dataTableCounty: DataTableComponent;
+    @ViewChild('dataTableCounty', {static: false}) dataTableCounty: DataTableComponent;
 
     model: CountyModel;
 
+    countyData$: Observable<CountyModel[]>;
+
     dropDownList: {
-        cityList: CityModel[]
+        cityList$: Observable<CityModel[]>
     };
 
     searchParams: {
@@ -50,7 +57,9 @@ export class CountyComponent implements OnInit {
 
     //#region Constructors
 
-    constructor(private cityService: CityApiService, private alertService: AlertService) { }
+    constructor(private cityQuery: CityQuery, private countyService: CountyService,
+                private countyQuery: CountyQuery, private alertService: AlertService) {
+    }
 
     //#endregion
 
@@ -59,10 +68,7 @@ export class CountyComponent implements OnInit {
     ngOnInit() {
 
         this.dropDownList = {
-            cityList: [{
-                id: 1,
-                name: 'Ha Noi'
-            }]
+            cityList$: this.cityQuery.selectAll()
         };
 
         this.searchParams = {
@@ -70,28 +76,28 @@ export class CountyComponent implements OnInit {
             name: ''
         };
 
-        this.model = new CountyModel();
-
-        this.cityService.getAll().subscribe(
-            resp => {
-                this.dropDownList.cityList = resp;
-            },
-            error => this.alertService.error(error)
-        );
+        this.model = createCounty(null);
+        this.countyData$ = this.countyQuery.selectAll();
 
         this.dataTableCountyOptions = {
-            data: [{
-                id: 1,
-                name: 'CG',
-                city: {
-                    id: 1,
-                    name: 'HN'
-                }
-            }],
+            data: [],
+            ajax: (dataTablesParameters: any, callback) => {
+                const sub = this.countyData$.subscribe(
+                    resp => {
+                        callback({
+                            recordsTotal: resp.length,
+                            recordsFiltered: resp.length,
+                            data: resp
+                        });
+                    },
+                    error => this.alertService.error(error)
+                );
+                this.subscription.add(sub);
+            },
             columns: [
-                { title: 'Id', data: 'id' },
-                { title: 'Name', data: 'name' },
-                { title: 'City', data: 'city.name' },
+                {title: 'Id', data: 'id'},
+                {title: 'Name', data: 'name'},
+                {title: 'City', data: 'city.name'},
             ],
             columnDefs: [],
             paging: true,
@@ -117,40 +123,58 @@ export class CountyComponent implements OnInit {
             cancelText: 'Cancel'
         };
 
-        this.resetForm();
+        this.refreshDataTable();
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     //#endregion
 
-    //#region Funtions
+    //#region Functions
 
-    showPopupAdd() {
-        this.resetForm();
+    showPopupAdd(addCountyForm?: NgForm) {
+        this.resetForm(addCountyForm);
         this.popupAddEditCountyOptions.okText = 'Add';
         this.popupAddEditCountyOptions.title = 'Add County';
         this.popupAddEditCounty.show();
     }
 
-    showPopupEdit(event) {
+    showPopupEdit(event, addCountyForm?: NgForm) {
+        this.resetForm(addCountyForm);
         const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
-        this.model = _.cloneDeep(data);
-        this.popupAddEditCountyOptions.okText = 'Update';
-        this.popupAddEditCountyOptions.title = 'Update County';
-        this.popupAddEditCounty.show();
+        this.countyQuery.select(data.id).pipe(take(1)).subscribe(
+            resp => {
+                this.model = data;
+                this.popupAddEditCountyOptions.okText = 'Update';
+                this.popupAddEditCountyOptions.title = 'Update County';
+                this.popupAddEditCounty.show();
+            },
+            error => this.alertService.error(error)
+        );
     }
 
     showPopupDelete(event) {
         const data = this.dataTableCounty.getRowData<CountyModel>(event.currentTarget);
-        this.model = _.cloneDeep(data);
+        this.model = data;
         this.popupDeleteCounty.show();
     }
 
     refreshDataTable() {
+        this.countyService.get().subscribe(
+            response => {
+                this.alertService.success(response);
+            },
+            error => {
+                this.alertService.error(error);
+            }
+        );
         this.dataTableCounty.refreshData();
     }
 
     resetForm(addCountyForm?: NgForm) {
-        this.model = new CountyModel();
+        this.model = createCounty(null);
         if (addCountyForm) {
             addCountyForm.resetForm();
         }
@@ -160,54 +184,63 @@ export class CountyComponent implements OnInit {
         if (addCountyForm.valid) {
             // Update
             if (this.model.id) {
-                const data = _.find(this.dataTableCountyOptions.data, { id: this.model.id });
-                _.assign(data, this.model);
-                this.alertService.success('Update county success');
-                this.resetForm();
-                this.popupAddEditCounty.hide();
-                this.refreshDataTable();
+                this.countyService.update(this.model.id, this.model).subscribe(
+                    resp => {
+                        this.resetForm(addCountyForm);
+                        this.popupAddEditCounty.hide();
+                        this.refreshDataTable();
+                    },
+                    error => this.alertService.error(error)
+                );
             } else {
-                const maxItem = _.maxBy(this.dataTableCountyOptions.data, 'id');
-                let id = 1;
-                if (maxItem) {
-                    id = maxItem.id + 1;
-                }
-                this.model.id = id;
-                this.dataTableCountyOptions.data.push(this.model);
-                this.alertService.success('Add county success');
-                this.resetForm();
-                this.popupAddEditCounty.hide();
-                this.refreshDataTable();
+                this.countyService.add(this.model).subscribe(
+                    resp => {
+                        this.resetForm(addCountyForm);
+                        this.popupAddEditCounty.hide();
+                        this.refreshDataTable();
+                    },
+                    error => this.alertService.error(error)
+                );
             }
         }
     }
 
     onDeleteCountySubmit(event) {
         if (this.model.id) {
-            _.remove(this.dataTableCountyOptions.data, { id: this.model.id });
-            this.alertService.success('Delete county success');
-            this.resetForm();
-            this.popupDeleteCounty.hide();
-            this.refreshDataTable();
+            this.countyService.remove(this.model.id).subscribe(
+                resp => {
+                    this.resetForm();
+                    this.popupDeleteCounty.hide();
+                    this.refreshDataTable();
+                },
+                error => this.alertService.error(error)
+            );
         }
     }
 
     onSearchFormSubmit(searchCountyForm: NgForm) {
         if (searchCountyForm.valid) {
-            const city = _.find<CityModel>(this.dropDownList.cityList, { id: this.searchParams.cityId });
-            const cityName = city ? city.name : '';
-            this.dataTableCounty.search([
-                {
-                    columnIndex: 1,
-                    searchKey: this.searchParams.name
-                },
-                {
-                    columnIndex: 2,
-                    searchKey: cityName
-                },
-            ]);
+            this.dropDownList.cityList$.pipe(
+                take(1),
+                map(data => data.find(x => x.id == this.searchParams.cityId))
+            ).subscribe(
+                response => {
+                    const cityName = response ? response.name : '';
+                    this.dataTableCounty.search([
+                        {
+                            columnIndex: 1,
+                            searchKey: this.searchParams.name
+                        },
+                        {
+                            columnIndex: 2,
+                            searchKey: cityName
+                        },
+                    ]);
+                }
+            );
         }
     }
+
     //#endregion
 
 }

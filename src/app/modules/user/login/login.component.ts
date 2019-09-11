@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { IcheckOption } from '@app/core/models/icheck-option';
 import { AlertService } from '@app/core/services/alert.service';
 import { LoginModel } from '@app/core/stores/auth/login.model';
+import {AuthService} from '@app/core/stores/auth/auth.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { LoginModel } from '@app/core/stores/auth/login.model';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
     //#region Inputs, Outputs
 
@@ -29,14 +29,13 @@ export class LoginComponent implements OnInit {
     //#region Constructors
 
     constructor(private route: ActivatedRoute, private router: Router,
-                private authService: AuthApiService, private alertService: AlertService) { }
+                private authService: AuthService, private alertService: AlertService) { }
 
     //#endregion
 
-    //#region OnInit
+    //#region Life Cycle
 
     ngOnInit() {
-
         this.isRememberCheckboxOption = {
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_minimal-blue'
@@ -45,9 +44,12 @@ export class LoginComponent implements OnInit {
         this.resetForm();
     }
 
+    ngOnDestroy(): void {
+    }
+
     //#endregion
 
-    //#region Funtions
+    //#region Functions
 
     resetForm() {
         this.loginModel = new LoginModel();
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
 
     onLogInFormSubmit(logInForm: NgForm) {
         if (logInForm.valid) {
-            this.authService.logIn(this.loginModel).subscribe(
+            this.authService.login(this.loginModel).subscribe(
                 resp => {
                     const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
                     this.router.navigate([returnUrl]);

@@ -23,7 +23,7 @@
                         <select class="form-control" id="searchCountyFormCity" name="searchCountyFormCity"
                             [(ngModel)]="searchParams.cityId" #searchCountyFormCity="ngModel">
                             <option [ngValue]="null"> -- Select -- </option>
-                            <option *ngFor="let city of dropDownList.cityList" [ngValue]="city.id">
+                            <option *ngFor="let city of dropDownList.cityList$ | async" [ngValue]="city.id">
                                 {{ city.name }}
                             </option>
                         </select>
@@ -71,7 +71,7 @@
                         <select class="form-control" id="addCountyFormCity" name="addCountyFormCity"
                             [(ngModel)]="model.city.id" #addCountyFormCity="ngModel" required>
                             <option [ngValue]="null"> -- Select -- </option>
-                            <option *ngFor="let city of dropDownList.cityList" [ngValue]="city.id">
+                            <option *ngFor="let city of dropDownList.cityList$ | async" [ngValue]="city.id">
                                 {{ city.name }}
                             </option>
                         </select>

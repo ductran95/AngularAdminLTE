@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '@app/core/services/layout.service';
-import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
-import { UserModel } from '@app/core/models/data/user-model';
 import { SidebarItemModel } from '@app/core/models/sidebar-item-model';
+import {AuthQuery} from '@app/core/stores/auth/auth.query';
+import {Observable} from 'rxjs';
+import {UserModel} from '@app/core/stores/user/user.model';
 
 declare var $;
 
@@ -20,13 +21,13 @@ export class MainLayoutSidebarComponent implements OnInit {
     //#region Properties
 
     sidebarMenu: SidebarItemModel[];
-    user: UserModel;
+    user$: Observable<UserModel>;
 
     //#endregion
 
     //#region Constructors
 
-    constructor(private layoutService: LayoutService, private authService: AuthApiService) { }
+    constructor(private layoutService: LayoutService, private authQuery: AuthQuery) { }
 
     //#endregion
 
@@ -39,7 +40,7 @@ export class MainLayoutSidebarComponent implements OnInit {
             }
         );
 
-        this.user = this.authService.user;
+        this.user$ = this.authQuery.user$;
 
         $(document).ready(() => {
             const trees: any = $('[data-widget="tree"]');

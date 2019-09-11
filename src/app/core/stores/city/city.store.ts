@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { City } from './city.model';
+import { CityModel } from './city.model';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 
-export interface CityState extends EntityState<City> {}
+export interface CityState extends EntityState<CityModel> {}
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'city' })

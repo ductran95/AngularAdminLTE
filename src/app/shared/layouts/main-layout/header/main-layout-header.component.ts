@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthApiService } from '@app/core/stores/auth/auth.api-service';
-import { UserModel } from '@app/core/models/data/user-model';
+import {Observable} from 'rxjs';
+import {UserModel} from '@app/core/stores/user/user.model';
+import {AuthQuery} from '@app/core/stores/auth/auth.query';
+import {AuthService} from '@app/core/stores/auth/auth.service';
 
 @Component({
     selector: 'main-layout-header',
@@ -15,20 +17,20 @@ export class MainLayoutHeaderComponent implements OnInit {
 
     //#region Properties
 
-    user: UserModel;
+    user$: Observable<UserModel>;
 
     //#endregion
 
     //#region Constructors
 
-    constructor(private authService: AuthApiService) { }
+    constructor(private authQuery: AuthQuery, private authService: AuthService) { }
 
     //#endregion
 
     //#region OnInit
 
     ngOnInit() {
-        this.user = this.authService.user;
+        this.user$ = this.authQuery.user$;
     }
 
     //#endregion
@@ -52,7 +54,7 @@ export class MainLayoutHeaderComponent implements OnInit {
     }
 
     logOut() {
-        this.authService.logOut();
+        this.authService.logout();
         location.reload();
     }
 
