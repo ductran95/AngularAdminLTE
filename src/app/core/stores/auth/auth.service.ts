@@ -22,7 +22,7 @@ export class AuthService {
                         const authState = {
                             jwtSecret: response.data.token,
                             user: createUserFromResponse(response.data.user)
-                        }
+                        };
                         this.authStore.login(authState);
                         if (loginParam.remember) {
                             this.authStore.saveToLocalStorage(authState);
