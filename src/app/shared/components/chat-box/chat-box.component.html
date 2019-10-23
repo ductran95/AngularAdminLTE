@@ -19,7 +19,7 @@
                 </div>
                 <!-- /.direct-chat-text -->
                 <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-timestamp" [ngClass]="{'pull-left': message.user.type == 'you', 'pull-right': message.user.type == 'me'}">{{message.timeSend | date: appConstant.dateFormat}}</span>
+                    <span class="direct-chat-timestamp" [ngClass]="{'pull-left': message.user.type == 'you', 'pull-right': message.user.type == 'me'}">{{message.timeSend | date: appConstant.dateTimeFormat}}</span>
                 </div>
             </div>
         </virtual-scroller>
